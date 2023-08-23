@@ -1,3 +1,3 @@
 export default function Qa() {
-    return <h1>qa</h1>
+	return <h1>qa</h1>
 }

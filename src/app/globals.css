@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 .title-content {
-    text-align: center;
-    font-family: Cormorant;
+	text-align: center;
+	font-family: Cormorant;
 }
