@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-	title: "Dillon & Jennifer Wedding",
+	title: "Jennifer & Dillon Wedding",
 	description: "A web app to submit and edit rsvp data for our wedding.",
 }
 
