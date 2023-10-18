@@ -1,5 +1,5 @@
 import React from 'react'
-import RsvpGroupSelectForm from '../../../RsvpGroupSelectForm';
+import RsvpGroupSelectForm from '../../RsvpGroupSelectForm';
 
 export default async function Page({ params }) {
     console.log('THIS IS PARAMS')
@@ -15,14 +15,17 @@ export default async function Page({ params }) {
     })
     const payload = await res.json();
     const status = res.status;
+    console.log(payload)
 
     if(status == 200) {
         return (
             <>
-                {/* <p>We've found you in the guest list. Please confirm your name below to continue with your RSVP.</p>  */}
-                <p>We've found more than one match in the guest list. Please select your name from the list below.</p>
+                {
+                    payload?.length > 1 ? <p>We've found more than one match in the guest list. Please select your name from the list below.</p>
+                    : <p>We’ve found you in the guest list. Please confirm your name below to continue with your RSVP.</p>
+                }
                 <RsvpGroupSelectForm rsvpGroups={payload} />
-            </>
+            </>            
         )
     } else if(status == 404) {
         return (
