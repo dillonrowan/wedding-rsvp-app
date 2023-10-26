@@ -1,5 +1,6 @@
 import React from 'react'
 import RsvpGroupSelectForm from '../../RsvpGroupSelectForm';
+import SearchRsvpByNameForm from '../../../../../components/SearchRsvpByNameForm';
 
 export default async function Page({ params }) {
     console.log('THIS IS PARAMS')
