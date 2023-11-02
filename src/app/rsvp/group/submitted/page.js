@@ -1,80 +1,82 @@
-'use client'
+// 'use client'
 import React from 'react';
-import { useParams } from 'next/navigation';
+// import { useParams } from 'next/navigation';
 
-function getFormData(params) {
-    const data = new FormData(e.target);
+//TODO: how do send rsvp group id and the rsvp length
+function getRsvpGroupUpdateBody(data) {
+    console.log('FORM SUBMITTED');
+
+    // const data = new FormData(e.target);
     console.log(data)
 
-    // let dietaryRestrictions = new Set();
-    // let foodAllergies = new Set();
     let rsvpUpdates = {};
     rsvpGroup.rsvps.forEach(rsvp => {
-      rsvpUpdates[rsvp.id] = {
+    rsvpUpdates[rsvp.id] = {
         dietaryRestrictions: new Set(),
         foodAllergies: new Set(),
         attending: false
-      }
+    }
     });
     let email = rsvpGroup.email;
 
     for (const [key, value] of data.entries()) {
-      console.log(key, value);
-      if(value) {
+    console.log(key, value);
+    if(value) {
         const id = key.split("|")[0];
 
         if(key == "email") {
-          email = value;
+        email = value;
         }
 
         if(key.includes("dietaryRestriction")) {
-          rsvpUpdates[id].dietaryRestrictions.add(value);
+        rsvpUpdates[id].dietaryRestrictions.add(value);
         }
 
         if(key.includes("foodAllergy")) {
-          rsvpUpdates[id].foodAllergies.add(value);
+        rsvpUpdates[id].foodAllergies.add(value);
         }
 
         if(key.includes("vegetarian")) {
-          vegetarianRestrictions.forEach(item => rsvpUpdates[id].dietaryRestrictions.add(item))
+        vegetarianRestrictions.forEach(item => rsvpUpdates[id].dietaryRestrictions.add(item))
         }
 
         if(key.includes("vegan")) {
-          veganRestrictions.forEach(item => rsvpUpdates[id].dietaryRestrictions.add(item))
+        veganRestrictions.forEach(item => rsvpUpdates[id].dietaryRestrictions.add(item))
         }
 
         // name for attending form input is rsvpId|attending
         if(key.includes("attending")) {
-          rsvpUpdates[id].attending = value ? true : false;
+        rsvpUpdates[id].attending = value ? true : false;
         }        
-      }      
+    }      
     }
     console.log(JSON.stringify(rsvpUpdates))
 
     let rsvpsToPost = [];
     for (const [key] of Object.entries(rsvpUpdates)) {
-      rsvpsToPost.push({
+    rsvpsToPost.push({
         id: key,
         dietaryRestrictions: Array.from(rsvpUpdates[key].dietaryRestrictions),
         foodAllergies: Array.from(rsvpUpdates[key].foodAllergies),
         attending: rsvpUpdates[key].attending
-      });
+    });
     }
     console.log(rsvpsToPost)
 
     const rsvpGroupToPost = {
-      id: rsvpGroup.id,
-      rsvp: rsvpsToPost,
-      email: email
+    id: rsvpGroup.id,
+    rsvp: rsvpsToPost,
+    email: email
     }
-    console.log(rsvpGroupToPost);
-    return rsvpGroupToPost;
+    console.log(rsvpGroupToPost)
 }
 
-export default async function Page() {
-    console.log('THIS IS PARAMS')
-    const params = useParams();
-    console.log(params)
+
+export default async function Page({ params, searchParams }) {
+    console.log('THIS IS PARAMS******************************')
+    // const params = useParams();
+    console.log(params);
+    console.log(searchParams);
     // const res = await fetch("http://api.jenniferanddillonwedding.com:8080/api/update-rsvp-and-rsvp-groups", {
     //     cache: "no-store",
     //     method: "POST",
