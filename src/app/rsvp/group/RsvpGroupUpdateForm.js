@@ -1,15 +1,16 @@
-'use client'
+//'use client'
 import React from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+//import { useSearchParams, useRouter } from 'next/navigation';
 
 export default async function RsvpGroupUpdateForm(props) {
   const vegetarianRestrictions = ["NO_RED_MEAT", "NO_CHICKEN", "NO_FISH", "NO_PORK"];
   const veganRestrictions = vegetarianRestrictions.concat(["NO_EGGS", "NO_DAIRY"]);
-  
-  const router = useRouter();
+  console.log('THIS IS RSVP GROUP');
+  console.log(props.rsvpGroup)
+  //const router = useRouter();
  
   
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
     console.log('FORM SUBMITTED');
 
@@ -25,6 +26,7 @@ export default async function RsvpGroupUpdateForm(props) {
       }
     });
     let email = props.rsvpGroup.email;
+    console.log(email)
 
     for (const [key, value] of data.entries()) {
       console.log(key, value);
@@ -32,6 +34,7 @@ export default async function RsvpGroupUpdateForm(props) {
         const id = key.split("|")[0];
 
         if(key == "email") {
+          console.log('FOUND EMAIL')
           email = value;
         }
 
@@ -62,7 +65,7 @@ export default async function RsvpGroupUpdateForm(props) {
     let rsvpsToPost = [];
     for (const [key] of Object.entries(rsvpUpdates)) {
       rsvpsToPost.push({
-        id: key,
+        id: Number(key),
         dietaryRestrictions: Array.from(rsvpUpdates[key].dietaryRestrictions),
         foodAllergies: Array.from(rsvpUpdates[key].foodAllergies),
         attending: rsvpUpdates[key].attending
@@ -70,14 +73,20 @@ export default async function RsvpGroupUpdateForm(props) {
     }
     console.log(rsvpsToPost)
 
-    const rsvpGroupToPost = JSON.stringify({
+    const rsvpGroupToPost = [{
       id: props.rsvpGroup.id,
-      rsvp: rsvpsToPost,
+      rsvps: rsvpsToPost,
       email: email
-    })
-    console.log(rsvpGroupToPost)
+    }];
 
-    router.push(`${process.env.NEXT_PUBLIC_HOST}/rsvp/group/submitted?rsvpGroupToPost=${rsvpGroupToPost}`)
+    const res = await fetch("/api/updateRsvpGroupAndRsvps", {
+        cache: "no-store",
+        method: "POST",
+        body: JSON.stringify(rsvpGroupToPost)
+    });
+    
+    const status = res.status;
+    console.log(status)
   }
 
   // Return true if dietaryRestrictions has all entries to vegetarianRestrictions, else false.
@@ -95,14 +104,18 @@ export default async function RsvpGroupUpdateForm(props) {
     <>
       <p>Please fill out what best describes your attending party.</p> 
       <form onSubmit={(e) => { handleSubmit(e) }}>   
-      {/* <form action={`${process.env.NEXT_PUBLIC_HOST}/rsvp/group/submitted`} method="POST">   */}
         <div>          
           <input type="text" name="email" className="border-solid border-2 border-red-500"
             defaultValue={props.rsvpGroup.email}></input>
           <label htmlFor="email">What is the group's email?</label>
         </div>      
         {props.rsvpGroup.rsvps?.map((rsvp) => (
+          
           <div key={rsvp.id} className="border-solid border-2 border-sky-500">
+            <div>{rsvp.foodAllergies}</div>
+            <div>{rsvp.foodAllergies.length}</div>
+            <div>{rsvp.dietaryRestrictions}</div>
+            <div>{rsvp.dietaryRestrictions.length}</div>
             <div>{rsvp.name}</div>
               <div>          
                 <input type="checkbox" id={rsvp.id} name={`${rsvp.id}|attending`}
@@ -113,17 +126,17 @@ export default async function RsvpGroupUpdateForm(props) {
             <div className="dietary-restrictions">
               <div>          
                 <input type="checkbox" id="vegetarian" name={`${rsvp.id}|vegetarian`}
-                  defaultChecked={isVegetarian(props.rsvpGroup.dietaryRestrictions) ? "checked" : ""}></input>
+                  defaultChecked={isVegetarian(rsvp.dietaryRestrictions) ? "checked" : ""}></input>
                 <label htmlFor="vegetarian">Vegetarian</label>
               </div>        
               <div>
                 <input type="checkbox" id="vegan" name={`${rsvp.id}|vegan`}
-                  defaultChecked={isVegan(props.rsvpGroup.dietaryRestrictions) ? "checked" : ""}></input>
+                  defaultChecked={isVegan(rsvp.dietaryRestrictions) ? "checked" : ""}></input>
                 <label htmlFor="vegan">Vegan</label>
               </div>        
               <div>
                 <input type="checkbox" id="dietaryRestriction1" name={`${rsvp.id}|dietaryRestriction1`} value="NO_PORK"
-                  defaultChecked={props.rsvpGroup.dietaryRestrictions && props.rsvpGroup.dietaryRestrictions?.includes("NO_PORK") ? "checked" : ""}></input>
+                  defaultChecked={rsvp.dietaryRestrictions && rsvp.dietaryRestrictions.includes("NO_PORK") ? "checked" : ""}></input>
                 <label htmlFor="dietaryRestriction1">No Pork</label>
               </div>  
             </div>         
@@ -132,37 +145,37 @@ export default async function RsvpGroupUpdateForm(props) {
               <p>Please indicate any food allergies your party may have.</p>    
               <div>
                 <input type="checkbox" name={`${rsvp.id}|foodAllergy1`} value="PEANUTS"
-                  defaultChecked={props.rsvpGroup.foodAllergies && props.rsvpGroup.foodAllergies?.includes("PEANUTS") ? "checked" : ""}></input>
+                  defaultChecked={rsvp.foodAllergies && rsvp.foodAllergies.includes("PEANUTS") ? "checked" : ""}></input>
                 <label htmlFor={`${rsvp.id}|foodAllergy1`}>Peanuts</label>
               </div>   
               <div>
                 <input type="checkbox" name={`${rsvp.id}|foodAllergy2`} value="FISH" 
-                  defaultChecked={props.rsvpGroup.foodAllergies && props.rsvpGroup.foodAllergies?.includes("FISH") ? "checked" : ""}></input>
+                  defaultChecked={rsvp.foodAllergies && rsvp.foodAllergies.includes("FISH") ? "checked" : ""}></input>
                 <label htmlFor={`${rsvp.id}|foodAllergy2`}>Fish</label>
               </div>
               <div>
                 <input type="checkbox" name={`${rsvp.id}|foodAllergy3`} value="EGGS" 
-                  defaultChecked={props.rsvpGroup.foodAllergies && props.rsvpGroup.foodAllergies?.includes("EGGS") ? "checked" : ""}></input>
+                  defaultChecked={(rsvp.foodAllergies && rsvp.foodAllergies.includes("EGGS") || rsvp.dietaryRestrictions.includes("NO_EGGS")) ? "checked" : ""}></input>
                 <label htmlFor={`${rsvp.id}|foodAllergy3`}>Eggs</label>
               </div>
               <div>
                 <input type="checkbox" name={`${rsvp.id}|foodAllergy4`} value="SOY_PRODUCTS"
-                  defaultChecked={props.rsvpGroup.foodAllergies && props.rsvpGroup.foodAllergies?.includes("SOY_PRODUCTS") ? "checked" : ""}></input>
+                  defaultChecked={rsvp.foodAllergies && rsvp.foodAllergies.includes("SOY_PRODUCTS") ? "checked" : ""}></input>
                 <label htmlFor={`${rsvp.id}|foodAllergy4`}>Soy Products</label>
               </div>
               <div>
                 <input type="checkbox" name={`${rsvp.id}|foodAllergy5`} value="DAIRY"
-                  defaultChecked={props.rsvpGroup.foodAllergies && props.rsvpGroup.foodAllergies?.includes("DAIRY") ? "checked" : ""}></input>
+                  defaultChecked={(rsvp.foodAllergies && rsvp.foodAllergies.includes("DAIRY") || rsvp.dietaryRestrictions.includes("NO_DAIRY")) ? "checked" : ""}></input>
                 <label htmlFor={`${rsvp.id}|foodAllergy5`}>Dairy</label>
               </div>
               <div>
                 <input type="checkbox" name={`${rsvp.id}|foodAllergy6`} value="TREE_NUTS"
-                  defaultChecked={props.rsvpGroup.foodAllergies && props.rsvpGroup.foodAllergies?.includes("TREE_NUTS") ? "checked" : ""}></input>
+                  defaultChecked={rsvp.foodAllergies && rsvp.foodAllergies.includes("TREE_NUTS") ? "checked" : ""}></input>
                 <label htmlFor={`${rsvp.id}|foodAllergy6`}>Tree Nuts</label>
               </div>
               <div>
                 <input type="checkbox" name={`${rsvp.id}|foodAllergy7`} value="MUSHROOM"
-                  defaultChecked={props.rsvpGroup.foodAllergies && props.rsvpGroup.foodAllergies?.includes("MUSHROOM") ? "checked" : ""}></input>
+                  defaultChecked={rsvp.foodAllergies && rsvp.foodAllergies.includes("MUSHROOM") ? "checked" : ""}></input>
                 <label htmlFor={`${rsvp.id}|foodAllergy7`}>Mushroom</label>
               </div>
             </div>            
