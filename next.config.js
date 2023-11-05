@@ -3,7 +3,7 @@ const nextConfig = {
 	// output: "export",
 	experimental: {
 		serverActions: true,
-	},
+	}
 }
 
 module.exports = nextConfig
