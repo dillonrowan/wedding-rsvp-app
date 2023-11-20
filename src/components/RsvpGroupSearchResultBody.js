@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import RsvpGroupUpdateForm from "./RsvpGroupUpdateForm";
-import SearchRsvpByNameForm from "./SearchRsvpByNameForm";
 
 
 export default async function RsvpGroupSearchResultBody(props) {
@@ -16,7 +15,7 @@ export default async function RsvpGroupSearchResultBody(props) {
 
     return (
         <>
-            {
+            {               
                 props.rsvpGroups.length > 1 ? (
                     <p>
                         We've found more than one match in the guest list. Please

@@ -1,6 +1,6 @@
 //'use client'
 import React from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default async function RsvpGroupUpdateForm(props) {
     const vegetarianRestrictions = [
@@ -340,12 +340,7 @@ export default async function RsvpGroupUpdateForm(props) {
                                         (rsvp.foodAllergies &&
 											rsvp.foodAllergies.includes(
 											    "EGGS"
-											)) ||
-										rsvp.dietaryRestrictions.includes(
-										    "NO_EGGS"
-										)
-                                            ? "checked"
-                                            : ""
+											))
                                     }></input>
                                 <label htmlFor={`${rsvp.id}|foodAllergy3`}>
 									Eggs
