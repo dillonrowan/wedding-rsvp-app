@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import RsvpGroupUpdateForm from "./RsvpGroupUpdateForm";
-import { useSearchParams, useRouter } from "next/navigation";
+import SearchRsvpByNameForm from "./SearchRsvpByNameForm";
+
 
 export default async function RsvpGroupSearchResultBody(props) {
     const [selectedRsvpGroup, setSelectedRsvpGroup] = useState(null);
@@ -15,17 +16,19 @@ export default async function RsvpGroupSearchResultBody(props) {
 
     return (
         <>
-            {props.rsvpGroups?.length > 1 ? (
-                <p>
-					We've found more than one match in the guest list. Please
-					select your name from the list below.
-                </p>
-            ) : (
-                <p>
-					We’ve found you in the guest list. Please confirm your name
-					below to continue with your RSVP.
-                </p>
-            )}
+            {
+                props.rsvpGroups.length > 1 ? (
+                    <p>
+                        We've found more than one match in the guest list. Please
+                        select your name from the list below.
+                    </p>
+                ) : (
+                    <p>
+                        We’ve found you in the guest list. Please confirm your name
+                        below to continue with your RSVP.
+                    </p>
+                )
+            }
             {!selectedRsvpGroup ? (
                 <div>
                     <form

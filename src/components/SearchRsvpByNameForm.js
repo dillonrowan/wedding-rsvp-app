@@ -6,13 +6,15 @@ import { useRouter, usePathname, redirect } from "next/navigation";
 import Link from "../../node_modules/next/link";
 
 export default function SearchRsvpByNameForm() {
-    const [groupSearchInput, setGroupSearchInput] = useState("");
+    const [groupSearchInput, setGroupSearchInput] = useState(null);
     const router = useRouter();
-    const path = `rsvp/group/search/${groupSearchInput}`;
+    const path = `rsvpSearch/${groupSearchInput}`;
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        router.push(`${process.env.NEXT_PUBLIC_HOST}/` + path);
+        if(groupSearchInput) {
+            router.push(`${process.env.NEXT_PUBLIC_HOST}/` + path);
+        }        
     };
 
     return (

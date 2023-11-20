@@ -1,7 +1,7 @@
 // 'use client'
 import React from "react";
 // import { useSearchParams, useRouter } from 'next/navigation';
-import RsvpGroupUpdateForm from "../RsvpGroupUpdateForm";
+import RsvpGroupUpdateForm from "../../../../components/RsvpGroupUpdateForm";
 
 export default async function Page({ params, searchParams }) {
     const vegetarianRestrictions = [
