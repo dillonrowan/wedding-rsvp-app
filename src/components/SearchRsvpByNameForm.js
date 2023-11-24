@@ -7,7 +7,7 @@ import { useRouter, usePathname, redirect } from "next/navigation";
 export default function SearchRsvpByNameForm() {
     const [groupSearchInput, setGroupSearchInput] = useState(null);
     const router = useRouter();
-    const path = `rsvpSearch/${groupSearchInput}`;
+    const path = `rsvp/search/${groupSearchInput}`;
 
     const handleSubmit = (e) => {
         e.preventDefault();

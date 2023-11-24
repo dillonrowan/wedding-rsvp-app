@@ -128,6 +128,22 @@ export default async function RsvpGroupUpdateForm(props) {
         );
     };
 
+    const isDairyRestricted = (dietaryRestrictions, foodAllergies) => {
+        // (rsvp.foodAllergies &&
+        //     rsvp.foodAllergies.includes(
+        //         "DAIRY"
+        //     )) ||
+        // rsvp.dietaryRestrictions && rsvp.dietaryRestrictions.includes(
+        //     "NO_DAIRY"
+        // )
+        //     ? "checked"
+        //     : ""
+        if( (foodAllergies && foodAllergies.includes("DAIRY")) || (dietaryRestrictions && dietaryRestrictions.includes("NO_DAIRY")) ) {
+            return "checked";
+        }
+        return "";
+    };
+
     return (
         <>
             <p>Please fill out what best describes your attending party.</p>
@@ -282,14 +298,7 @@ export default async function RsvpGroupUpdateForm(props) {
                                     id="dietaryRestriction6"
                                     name={`${rsvp.id}|dietaryRestriction6`}
                                     value="NO_DAIRY"
-                                    defaultChecked={
-                                        rsvp.dietaryRestrictions &&
-										rsvp.dietaryRestrictions.includes(
-										    "NO_DAIRY"
-										)
-                                            ? "checked"
-                                            : ""
-                                    }></input>
+                                    defaultChecked={isDairyRestricted(rsvp.dietaryRestrictions, rsvp.foodAllergies)}></input>
                                 <label htmlFor="dietaryRestriction6">
 									No Dairy
                                 </label>
@@ -368,17 +377,7 @@ export default async function RsvpGroupUpdateForm(props) {
                                     type="checkbox"
                                     name={`${rsvp.id}|foodAllergy5`}
                                     value="DAIRY"
-                                    defaultChecked={
-                                        (rsvp.foodAllergies &&
-											rsvp.foodAllergies.includes(
-											    "DAIRY"
-											)) ||
-										rsvp.dietaryRestrictions.includes(
-										    "NO_DAIRY"
-										)
-                                            ? "checked"
-                                            : ""
-                                    }></input>
+                                    defaultChecked={isDairyRestricted(rsvp.dietaryRestrictions, rsvp.foodAllergies)}></input>
                                 <label htmlFor={`${rsvp.id}|foodAllergy5`}>
 									Dairy
                                 </label>

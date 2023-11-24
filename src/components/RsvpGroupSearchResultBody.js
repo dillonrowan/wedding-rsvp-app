@@ -1,11 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import RsvpGroupUpdateForm from "./RsvpGroupUpdateForm";
 
 
 export default async function RsvpGroupSearchResultBody(props) {
     const [selectedRsvpGroup, setSelectedRsvpGroup] = useState(null);
+    const router = useRouter();
     let temp = null;
+
+    //TODO: need to invalidate client side to show most recent data
+    // useEffect(()=>{
+    //     router.refresh();
+    // },[]);
     
 
     const handleSubmit = (e) => {

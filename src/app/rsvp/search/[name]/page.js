@@ -1,13 +1,12 @@
 import React from "react";
-import RsvpGroupSearchResultBody from "../../../components/RsvpGroupSearchResultBody";
-import SearchRsvpByNameForm from "../../../components/SearchRsvpByNameForm";
+import RsvpGroupSearchResultBody from "../../../../components/RsvpGroupSearchResultBody";
+import SearchRsvpByNameForm from "../../../../components/SearchRsvpByNameForm";
 
-export const revalidate = 10;
 export default async function Page({ params }) {
     const res = await fetch(
         `http://api.jenniferanddillonwedding.com:8080/api/rsvp-groups-by-name/${params.name}`,
         {
-            cache: "no-store",
+            cache: "no-cache",
             method: "GET",
             withCredentials: true,
             headers: {
@@ -17,8 +16,12 @@ export default async function Page({ params }) {
         }
     );
     const payload = await res.json();
+    payload.sort();
+    payload.forEach(rsvpGroup => {
+        rsvpGroup.rsvps.sort();
+    });
     const status = res.status;
-
+    // TODO: find out why we are not making a request for everytime we navigate to this route without refreshing.
     return (
         <>
             {   
