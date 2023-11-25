@@ -16,7 +16,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en" className={`${cormorant.variable}`}>
-            <body>
+            <body className="p-5">
                 <div className="title-content">
                     <h1 className="home-title mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
 						Jennifer & Dillon

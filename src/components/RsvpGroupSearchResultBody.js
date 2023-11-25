@@ -21,7 +21,7 @@ export default function RsvpGroupSearchResultBody(props) {
 
     if(!selectedRsvpGroup) {
         return (
-            <div className="w-1/3">
+            <div className="lg:w-1/3">
                 <div className="pb-7">
                     {                               
                         props.rsvpGroups.length > 1 ? (
@@ -30,7 +30,7 @@ export default function RsvpGroupSearchResultBody(props) {
                                 select your name from the list below.
                             </p>                    
                         ) : (
-                            <p className="font-cormorant text-2xl">
+                            <p className="font-cormorant text-3xl">
                                 We’ve found you in the guest list. Please confirm your name
                                 below to continue with your RSVP.
                             </p>                  
@@ -69,7 +69,7 @@ export default function RsvpGroupSearchResultBody(props) {
     }
 
     return (
-        <div className="w-1/3">
+        <div>
             <div>
                 <RsvpGroupUpdateForm rsvpGroup={selectedRsvpGroup} />
             </div>

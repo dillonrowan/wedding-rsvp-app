@@ -1,6 +1,7 @@
 //'use client'
 import React from "react";
 import { useRouter } from "next/navigation";
+import SubmitButton from "./SubmitButton";
 
 export default async function RsvpGroupUpdateForm(props) {
     const vegetarianRestrictions = [
@@ -129,15 +130,6 @@ export default async function RsvpGroupUpdateForm(props) {
     };
 
     const isDairyRestricted = (dietaryRestrictions, foodAllergies) => {
-        // (rsvp.foodAllergies &&
-        //     rsvp.foodAllergies.includes(
-        //         "DAIRY"
-        //     )) ||
-        // rsvp.dietaryRestrictions && rsvp.dietaryRestrictions.includes(
-        //     "NO_DAIRY"
-        // )
-        //     ? "checked"
-        //     : ""
         if( (foodAllergies && foodAllergies.includes("DAIRY")) || (dietaryRestrictions && dietaryRestrictions.includes("NO_DAIRY")) ) {
             return "checked";
         }
@@ -146,40 +138,48 @@ export default async function RsvpGroupUpdateForm(props) {
 
     return (
         <>
-            <p>Please fill out what best describes your attending party.</p>
+            <p className="font-cormorant font-cormorant text-3xl pb-5">Please fill out what best describes your attending party.</p>
             <form
+                className="accent-purple-100 font-cormorant"
                 onSubmit={(e) => {
                     handleSubmit(e);
                 }}>
-                <div>
+                <div className="pb-10 text-xl">
+                    <label className="pr-1" htmlFor="email">What is the group's email?</label>
                     <input
                         type="text"
                         name="email"
-                        className="border-solid border-2 border-red-500"
-                        defaultValue={props.rsvpGroup.email}></input>
-                    <label htmlFor="email">What is the group's email?</label>
+                        className="px-2 border-solid border-2 rounded"
+                        defaultValue={props.rsvpGroup.email}></input>                    
                 </div>
                 {props.rsvpGroup.rsvps?.map((rsvp) => (
                     <div
                         key={rsvp.id}
-                        className="border-solid border-2 border-sky-500">
-                        <div>{rsvp.name}</div>
+                        className="p-5 mb-10 text-xl border-3 bg-slate-100 rounded-lg drop-shadow-lg">
+                        <div className="font-cormorant font-bold text-2xl">{rsvp.name}</div>
+
+                        {/* attending input */}
                         <div>
                             <input
+                                className="mr-2 w-5 h-5"
                                 type="checkbox"
                                 id={rsvp.id}
                                 name={`${rsvp.id}|attending`}
                                 defaultChecked={
                                     rsvp.attending ? "checked" : ""
                                 }></input>
-                            <label htmlFor={`${rsvp.id}|attending`}>
-								attending?
+                            {/* TODO see if you can have store the id in another attribute, so htmlFor can reference a static name, allowing the text being clicked to toggle checked status */}
+                            <label className="text-2xl" htmlFor={`${rsvp.id}|attending`}>
+                                Attending?
                             </label>
                         </div>
-
-                        <div className="dietary-restrictions">
-                            <div>
+                        
+                        {/* start of diet restriction section */}
+                        <div className="dietary-restrictions pt-5">
+                            <p className="italic">Dietary Restrictions:</p>
+                            <div className="pb-2">
                                 <input
+                                    className="mr-2 w-5 h-5"
                                     type="checkbox"
                                     id="vegetarian"
                                     name={`${rsvp.id}|vegetarian`}
@@ -188,10 +188,11 @@ export default async function RsvpGroupUpdateForm(props) {
                                             ? "checked"
                                             : ""
                                     }></input>
-                                <label htmlFor="vegetarian">Vegetarian</label>
+                                <label className="text-2xl" htmlFor="vegetarian">Vegetarian</label>
                             </div>
-                            <div>
+                            <div className="pb-2">
                                 <input
+                                    className="mr-2 w-5 h-5"
                                     type="checkbox"
                                     id="vegan"
                                     name={`${rsvp.id}|vegan`}
@@ -200,10 +201,11 @@ export default async function RsvpGroupUpdateForm(props) {
                                             ? "checked"
                                             : ""
                                     }></input>
-                                <label htmlFor="vegan">Vegan</label>
+                                <label className="text-2xl" htmlFor="vegan">Vegan</label>
                             </div>
-                            <div>
+                            <div className="pb-2">
                                 <input
+                                    className="mr-2 w-5 h-5"
                                     type="checkbox"
                                     id="dietaryRestriction1"
                                     name={`${rsvp.id}|dietaryRestriction1`}
@@ -216,12 +218,13 @@ export default async function RsvpGroupUpdateForm(props) {
                                             ? "checked"
                                             : ""
                                     }></input>
-                                <label htmlFor="dietaryRestriction1">
+                                <label className="text-2xl" htmlFor="dietaryRestriction1">
 									No Red Meat
                                 </label>
                             </div>
-                            <div>
+                            <div className="pb-2">
                                 <input
+                                    className="mr-2 w-5 h-5"
                                     type="checkbox"
                                     id="dietaryRestriction2"
                                     name={`${rsvp.id}|dietaryRestriction2`}
@@ -234,12 +237,13 @@ export default async function RsvpGroupUpdateForm(props) {
                                             ? "checked"
                                             : ""
                                     }></input>
-                                <label htmlFor="dietaryRestriction2">
+                                <label className="text-2xl" htmlFor="dietaryRestriction2">
 									No Chicken
                                 </label>
                             </div>
-                            <div>
+                            <div className="pb-2">
                                 <input
+                                    className="mr-2 w-5 h-5"
                                     type="checkbox"
                                     id="dietaryRestriction3"
                                     name={`${rsvp.id}|dietaryRestriction3`}
@@ -252,12 +256,13 @@ export default async function RsvpGroupUpdateForm(props) {
                                             ? "checked"
                                             : ""
                                     }></input>
-                                <label htmlFor="dietaryRestriction3">
+                                <label className="text-2xl" htmlFor="dietaryRestriction3">
 									No Fish
                                 </label>
                             </div>
-                            <div>
+                            <div className="pb-2">
                                 <input
+                                    className="mr-2 w-5 h-5"
                                     type="checkbox"
                                     id="dietaryRestriction4"
                                     name={`${rsvp.id}|dietaryRestriction4`}
@@ -270,12 +275,13 @@ export default async function RsvpGroupUpdateForm(props) {
                                             ? "checked"
                                             : ""
                                     }></input>
-                                <label htmlFor="dietaryRestriction4">
+                                <label className="text-2xl" htmlFor="dietaryRestriction4">
 									No Eggs
                                 </label>
                             </div>
-                            <div>
+                            <div className="pb-2">
                                 <input
+                                    className="mr-2 w-5 h-5"
                                     type="checkbox"
                                     id="dietaryRestriction5"
                                     name={`${rsvp.id}|dietaryRestriction5`}
@@ -288,30 +294,32 @@ export default async function RsvpGroupUpdateForm(props) {
                                             ? "checked"
                                             : ""
                                     }></input>
-                                <label htmlFor="dietaryRestriction5">
+                                <label className="text-2xl" htmlFor="dietaryRestriction5">
 									No Pork
                                 </label>
                             </div>
                             <div>
                                 <input
+                                    className="mr-2 w-5 h-5"
                                     type="checkbox"
                                     id="dietaryRestriction6"
                                     name={`${rsvp.id}|dietaryRestriction6`}
                                     value="NO_DAIRY"
                                     defaultChecked={isDairyRestricted(rsvp.dietaryRestrictions, rsvp.foodAllergies)}></input>
-                                <label htmlFor="dietaryRestriction6">
+                                <label className="text-2xl" htmlFor="dietaryRestriction6">
 									No Dairy
                                 </label>
                             </div>
                         </div>
 
-                        <div className="food-allergies">
-                            <p>
-								Please indicate any food allergies your party
-								may have.
+                        {/* start of food allergy section */}
+                        <div className="food-allergies font-cormorant">
+                            <p className="pt-10 italic">
+								Food Allergies:
                             </p>
-                            <div>
+                            <div className="pb-2">
                                 <input
+                                    className="mr-2 w-5 h-5"
                                     type="checkbox"
                                     name={`${rsvp.id}|foodAllergy1`}
                                     value="PEANUTS"
@@ -321,12 +329,13 @@ export default async function RsvpGroupUpdateForm(props) {
                                             ? "checked"
                                             : ""
                                     }></input>
-                                <label htmlFor={`${rsvp.id}|foodAllergy1`}>
+                                <label className="text-2xl" htmlFor={`${rsvp.id}|foodAllergy1`}>
 									Peanuts
                                 </label>
                             </div>
-                            <div>
+                            <div className="pb-2">
                                 <input
+                                    className="mr-2 w-5 h-5"
                                     type="checkbox"
                                     name={`${rsvp.id}|foodAllergy2`}
                                     value="FISH"
@@ -336,12 +345,13 @@ export default async function RsvpGroupUpdateForm(props) {
                                             ? "checked"
                                             : ""
                                     }></input>
-                                <label htmlFor={`${rsvp.id}|foodAllergy2`}>
+                                <label className="text-2xl" htmlFor={`${rsvp.id}|foodAllergy2`}>
 									Fish
                                 </label>
                             </div>
-                            <div>
+                            <div className="pb-2">
                                 <input
+                                    className="mr-2 w-5 h-5"
                                     type="checkbox"
                                     name={`${rsvp.id}|foodAllergy3`}
                                     value="EGGS"
@@ -351,12 +361,13 @@ export default async function RsvpGroupUpdateForm(props) {
 											    "EGGS"
 											))
                                     }></input>
-                                <label htmlFor={`${rsvp.id}|foodAllergy3`}>
+                                <label className="text-2xl" htmlFor={`${rsvp.id}|foodAllergy3`}>
 									Eggs
                                 </label>
                             </div>
-                            <div>
+                            <div className="pb-2">
                                 <input
+                                    className="mr-2 w-5 h-5"
                                     type="checkbox"
                                     name={`${rsvp.id}|foodAllergy4`}
                                     value="SOY_PRODUCTS"
@@ -368,22 +379,24 @@ export default async function RsvpGroupUpdateForm(props) {
                                             ? "checked"
                                             : ""
                                     }></input>
-                                <label htmlFor={`${rsvp.id}|foodAllergy4`}>
+                                <label className="text-2xl" htmlFor={`${rsvp.id}|foodAllergy4`}>
 									Soy Products
                                 </label>
                             </div>
-                            <div>
+                            <div className="pb-2">
                                 <input
+                                    className="mr-2 w-5 h-5"
                                     type="checkbox"
                                     name={`${rsvp.id}|foodAllergy5`}
                                     value="DAIRY"
                                     defaultChecked={isDairyRestricted(rsvp.dietaryRestrictions, rsvp.foodAllergies)}></input>
-                                <label htmlFor={`${rsvp.id}|foodAllergy5`}>
+                                <label className="text-2xl" htmlFor={`${rsvp.id}|foodAllergy5`}>
 									Dairy
                                 </label>
                             </div>
-                            <div>
+                            <div className="pb-2">
                                 <input
+                                    className="mr-2 w-5 h-5"
                                     type="checkbox"
                                     name={`${rsvp.id}|foodAllergy6`}
                                     value="TREE_NUTS"
@@ -393,12 +406,13 @@ export default async function RsvpGroupUpdateForm(props) {
                                             ? "checked"
                                             : ""
                                     }></input>
-                                <label htmlFor={`${rsvp.id}|foodAllergy6`}>
+                                <label className="text-2xl" htmlFor={`${rsvp.id}|foodAllergy6`}>
 									Tree Nuts
                                 </label>
                             </div>
                             <div>
                                 <input
+                                    className="mr-2 w-5 h-5"
                                     type="checkbox"
                                     name={`${rsvp.id}|foodAllergy7`}
                                     value="MUSHROOM"
@@ -408,14 +422,14 @@ export default async function RsvpGroupUpdateForm(props) {
                                             ? "checked"
                                             : ""
                                     }></input>
-                                <label htmlFor={`${rsvp.id}|foodAllergy7`}>
+                                <label className="text-2xl" htmlFor={`${rsvp.id}|foodAllergy7`}>
 									Mushroom
                                 </label>
                             </div>
                         </div>
                     </div>
                 ))}
-                <input type="submit" value="Submit"></input>
+                <SubmitButton label="SUBMIT" />
             </form>
         </>
     );

@@ -23,7 +23,7 @@ export default async function Page({ params }) {
     const status = res.status;
     // TODO: find out why we are not making a request for everytime we navigate to this route without refreshing.
     return (
-        <div className="pt-24 flex flex-col items-center">            
+        <div className="lg:pt-24 flex flex-col items-center">            
             {   
                 status == 404 ? [
                     <p key="404-explanation" className="font-cormorant">Could not find any rsvp's matching search input; try again</p>,
