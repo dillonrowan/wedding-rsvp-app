@@ -1,36 +1,42 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import RsvpGroupUpdateForm from "./RsvpGroupUpdateForm";
+import { useRouter, usePathname, redirect } from "next/navigation";
 import SubmitButton from "./SubmitButton";
 
 export default function RsvpGroupSearchResultBody(props) {
     const [selectedRsvpGroup, setSelectedRsvpGroup] = useState(null);
     const [selectedTemp, setSelectedTemp] = useState(null);
 
+    const router = useRouter();
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setSelectedRsvpGroup(JSON.parse(selectedTemp));
     };
 
-    return (
-        <div className="w-1/3">
-            <div className="pb-7">
-                {                               
-                    props.rsvpGroups.length > 1 ? (
-                        <p className="font-cormorant text-3xl">
-                            We've found more than one match in the guest list. Please
-                            select your name from the list below.
-                        </p>                    
-                    ) : (
-                        <p className="font-cormorant text-2xl">
-                            We’ve found you in the guest list. Please confirm your name
-                            below to continue with your RSVP.
-                        </p>                  
-                    )
-                }
-            </div>
-            
-            {!selectedRsvpGroup ? (
+    const handleBackButtonClicked = (e) => {
+        router.push(`${process.env.NEXT_PUBLIC_HOST}/rsvp`);
+    };
+
+    if(!selectedRsvpGroup) {
+        return (
+            <div className="w-1/3">
+                <div className="pb-7">
+                    {                               
+                        props.rsvpGroups.length > 1 ? (
+                            <p className="font-cormorant text-3xl">
+                                We've found more than one match in the guest list. Please
+                                select your name from the list below.
+                            </p>                    
+                        ) : (
+                            <p className="font-cormorant text-2xl">
+                                We’ve found you in the guest list. Please confirm your name
+                                below to continue with your RSVP.
+                            </p>                  
+                        )
+                    }
+                </div>                
                 <div>
                     <form
                         className="pb-5"
@@ -58,11 +64,15 @@ export default function RsvpGroupSearchResultBody(props) {
                     </form>
                     <SubmitButton label="BACK" onButtonClick={(e) => { handleBackButtonClicked(e); }} />
                 </div>
-            ) : (
-                <div>
-                    <RsvpGroupUpdateForm rsvpGroup={selectedRsvpGroup} />
-                </div>
-            )}
+            </div>
+        )
+    }
+
+    return (
+        <div className="w-1/3">
+            <div>
+                <RsvpGroupUpdateForm rsvpGroup={selectedRsvpGroup} />
+            </div>
         </div>
     );
 }
