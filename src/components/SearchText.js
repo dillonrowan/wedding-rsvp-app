@@ -22,11 +22,11 @@ export default function SearchText(props) {
         // </div>
         <div>
             <input type="text" id="default-input" className="font-cormorant bg-gray-50 border border-black text-gray-900 text-sm rounded-lg focus:border-black block w-full p-2.5 placeholder-gray-400"
-            placeholder={props.placeholder}
-            value={searchInput}
-            onChange={(e) => {
-                handleInput(e.target.value);
-            }}></input>
+                placeholder={props.placeholder}
+                value={searchInput}
+                onChange={(e) => {
+                    handleInput(e.target.value);
+                }}></input>
         </div>
     );
 }

@@ -14,7 +14,7 @@ export default function Page() {
     },[router]);
 
     return (
-        <div className="pt-24 flex flex-col justify-center items-center">
+        <div className="pt-24 flex flex-col items-center">
             <div className="w-1/3">
                 <p className="font-cormorant">
                     If you're responding for you and a guest (or your family), you'll be able to RSVP for your entire group.

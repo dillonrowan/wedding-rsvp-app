@@ -4,8 +4,8 @@ import Navbar from "../components/Navbar";
 
 const cormorant = Cormorant({ 
     subsets: ["latin"],
-    display: 'swap',
-    variable: '--font-cormorant'
+    display: "swap",
+    variable: "--font-cormorant"
 });
 
 export const metadata = {

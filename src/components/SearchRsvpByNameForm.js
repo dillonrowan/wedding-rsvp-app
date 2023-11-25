@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import SearchText from "./SearchText";
 import { useRouter, usePathname, redirect } from "next/navigation";
+import SubmitButton from "../components/SubmitButton";
 
 export default function SearchRsvpByNameForm() {
     const [groupSearchInput, setGroupSearchInput] = useState(null);
@@ -25,7 +26,8 @@ export default function SearchRsvpByNameForm() {
                     handleSubmit(e);
                 }}>
                 <div className="py-8"><SearchText handleInput={setGroupSearchInput} placeholder={"Full Name"} /></div>
-                <button className="w-full font-cormorant h-14 bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 border disabled:bg-gray-400" type="submit" disabled={groupSearchInput ? false : true}>FIND YOUR INVENTATION</button>
+                <SubmitButton label="FIND YOUR INVENTATION" isDisabled={groupSearchInput ? false : true} />
+                {/* <button className="w-full font-cormorant h-14 bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 border disabled:bg-gray-400" type="submit" disabled={groupSearchInput ? false : true}>FIND YOUR INVENTATION</button> */}
             </form>
         </div>
     );
