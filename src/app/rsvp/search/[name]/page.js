@@ -47,6 +47,10 @@ function sortByName(rsvps, groupLead) {
             return 1;
         }
 
+        if(a.name == groupLead) {
+            return -1;
+        }
+
         return a.name.localeCompare(b.name);
     });
 }
