@@ -1,3 +1,9 @@
-export default function Registry() {
-    return <h1>registry</h1>
+import React from "react";
+
+export default function Page() {
+    return (
+        <div>
+            <div>registry</div>
+        </div>
+    );
 }
