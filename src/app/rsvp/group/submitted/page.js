@@ -15,7 +15,7 @@ export default async function Page({ params, searchParams }) {
         <div className="flex justify-center">       
             <div className="lg:pt-24 lg:w-1/3 flex flex-col items-center ">
                 <div className="font-cormorant text-2xl pb-8">
-                    {status == 200 ? <p>Rsvp successfully updated!</p> : <p>Something went wrong. Please notify us and we'll sort you out.</p>}
+                    {status == 200 ? <p>RSVP data was successfully submitted!</p> : <p>Something went wrong. Please notify us and we'll sort you out.</p>}
                 </div>
                 <SubmitButton label="OK" onButtonClick={(e) => {handleOkClicked(e);}}/>
             </div>            
