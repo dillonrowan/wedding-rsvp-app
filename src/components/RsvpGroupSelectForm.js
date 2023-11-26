@@ -3,7 +3,7 @@ import React from "react";
 export default function RsvpGroupSelectForm(props) {
     return (
         <div>
-            <form action={`${process.env.NEXT_PUBLIC_HOST}/rsvp/group/details`}>
+            <form action={"/rsvp/group/details"}>
                 {props.rsvpGroups?.map((rsvpGroup) => (
                     <div key={rsvpGroup.id}>
                         <input

@@ -97,7 +97,7 @@ export default async function RsvpGroupUpdateForm(props) {
 
         const status = res.status;
         router.push(
-            `${process.env.NEXT_PUBLIC_HOST}/rsvp/group/submitted?status=${status}`
+            `/rsvp/group/submitted?status=${status}`
         );
     }
 

@@ -16,7 +16,7 @@ export default function RsvpGroupSearchResultBody(props) {
     };
 
     const handleBackButtonClicked = (e) => {
-        router.push(`${process.env.NEXT_PUBLIC_HOST}/rsvp`);
+        router.push("/rsvp");
     };
 
     if(!selectedRsvpGroup) {

@@ -8,12 +8,12 @@ import SubmitButton from "../components/SubmitButton";
 export default function SearchRsvpByNameForm() {
     const [groupSearchInput, setGroupSearchInput] = useState(null);
     const router = useRouter();
-    const path = `rsvp/search/${groupSearchInput}`;
+    const path = `/rsvp/search/${groupSearchInput}`;
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if(groupSearchInput) {
-            router.push(`${process.env.NEXT_PUBLIC_HOST}/` + path);
+            router.push(path);
         }        
     };
 

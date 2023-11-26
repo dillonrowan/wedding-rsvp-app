@@ -8,7 +8,7 @@ export default async function Page({ params, searchParams }) {
     const status = searchParams["status"];
 
     const handleOkClicked = (e) => {
-        router.push(`${process.env.NEXT_PUBLIC_HOST}/`);
+        router.push("/");
     };
 
     return (
