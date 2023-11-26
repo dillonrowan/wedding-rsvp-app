@@ -21,7 +21,8 @@ export default function SearchText(props) {
         //         }}></input>
         // </div>
         <div>
-            <input type="text" id="default-input" className="font-cormorant bg-gray-50 border border-black text-gray-900 text-sm rounded-lg focus:border-black block w-full p-2.5 placeholder-gray-400"
+            {/* font-cormorant bg-gray-50 border border-black text-gray-900 text-sm rounded-lg focus:border-purple-500 block w-full p-2.5 placeholder-gray-400 */}
+            <input type="text"className="font-cormorant bg-gray-50 border border-black text-gray-900 text-sm rounded-lg focus:outline-purple-500 block w-full p-2.5 placeholder-gray-400"
                 placeholder={props.placeholder}
                 value={searchInput}
                 onChange={(e) => {

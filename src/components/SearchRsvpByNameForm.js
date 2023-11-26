@@ -20,7 +20,7 @@ export default function SearchRsvpByNameForm() {
     };
 
     return (
-        <div>
+        <div className="">
             <form
                 onSubmit={(e) => {
                     handleSubmit(e);

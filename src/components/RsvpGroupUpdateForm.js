@@ -138,7 +138,7 @@ export default async function RsvpGroupUpdateForm(props) {
 
     return (
         <>
-            <p className="font-cormorant font-cormorant text-3xl pb-5">Please fill out what best describes your attending party.</p>
+            <p className="font-cormorant font-cormorant text-2xl pb-5">Please fill out what best describes your attending party.</p>
             <form
                 className="accent-purple-100 font-cormorant"
                 onSubmit={(e) => {

@@ -25,12 +25,12 @@ export default function RsvpGroupSearchResultBody(props) {
                 <div className="pb-7">
                     {                               
                         props.rsvpGroups.length > 1 ? (
-                            <p className="font-cormorant text-3xl">
+                            <p className="font-cormorant text-2xl">
                                 We've found more than one match in the guest list. Please
                                 select your name from the list below.
                             </p>                    
                         ) : (
-                            <p className="font-cormorant text-3xl">
+                            <p className="font-cormorant text-2xl">
                                 We’ve found you in the guest list. Please confirm your name
                                 below to continue with your RSVP.
                             </p>                  
@@ -65,7 +65,7 @@ export default function RsvpGroupSearchResultBody(props) {
                     <SubmitButton label="BACK" onButtonClick={(e) => { handleBackButtonClicked(e); }} />
                 </div>
             </div>
-        )
+        );
     }
 
     return (

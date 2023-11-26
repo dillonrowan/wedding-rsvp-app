@@ -14,14 +14,14 @@ export default function Page() {
     },[router]);
 
     return (
-        <div className="pt-24 flex flex-col items-center">
-            <div className="w-1/3">
-                <p className="font-cormorant">
+        <div className="lg:pt-24 flex flex-col lg:items-center">
+            <div className="lg:w-1/3 ">
+                <p className="font-cormorant text-2xl">
                     If you're responding for you and a guest (or your family), you'll be able to RSVP for your entire group.
                     Please enter full name to submit search.
                 </p>
             </div>            
-            <div className="w-1/3"><SearchRsvpByNameForm /></div>
+            <div className="lg:w-1/3 "><SearchRsvpByNameForm /></div>
         </div>
     );
 }
