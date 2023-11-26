@@ -14,17 +14,13 @@ export default async function RsvpGroupUpdateForm(props) {
         "NO_EGGS",
         "NO_DAIRY",
     ]);
-    console.log("THIS IS RSVP GROUP");
-    console.log(props.rsvpGroup);
     const router = useRouter();
 
     async function handleSubmit(e) {
         e.preventDefault();
-        console.log("FORM SUBMITTED");
 
         // Form input of type "checkbox" will only contain entries for items that are "checked"
         const data = new FormData(e.target);
-        console.log(data);
 
         let rsvpUpdates = {};
         props.rsvpGroup.rsvps.forEach((rsvp) => {
@@ -35,10 +31,8 @@ export default async function RsvpGroupUpdateForm(props) {
             };
         });
         let email = props.rsvpGroup.email;
-        console.log(email);
 
         for (const [key, value] of data.entries()) {
-            console.log(key, value);
             if (value) {
                 const id = key.split("|")[0];
 
@@ -72,7 +66,6 @@ export default async function RsvpGroupUpdateForm(props) {
                 }
             }
         }
-        console.log(JSON.stringify(rsvpUpdates));
 
         let rsvpsToPost = [];
         for (const [key] of Object.entries(rsvpUpdates)) {
@@ -87,7 +80,6 @@ export default async function RsvpGroupUpdateForm(props) {
                 attending: rsvpUpdates[key].attending,
             });
         }
-        console.log(rsvpsToPost);
 
         const rsvpGroupToPost = [
             {

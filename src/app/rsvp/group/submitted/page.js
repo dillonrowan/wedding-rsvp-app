@@ -1,14 +1,10 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import SubmitButton from "../../../../components/SubmitButton";
 
 export default async function Page({ params, searchParams }) {
     const router = useRouter();
-    console.log("THIS IS PARAMS******************************");
-    // const params = useParams();
-    console.log(params);
-    console.log(searchParams);
     const status = searchParams["status"];
 
     const handleOkClicked = (e) => {
@@ -21,7 +17,7 @@ export default async function Page({ params, searchParams }) {
                 <div className="font-cormorant text-2xl pb-8">
                     {status == 200 ? <p>Rsvp successfully updated!</p> : <p>Something went wrong. Please notify us and we'll sort you out.</p>}
                 </div>
-                <SubmitButton label="OK" onButtonClick={(e) => {handleOkClicked(e)}}/>
+                <SubmitButton label="OK" onButtonClick={(e) => {handleOkClicked(e);}}/>
             </div>            
         </div>
     );

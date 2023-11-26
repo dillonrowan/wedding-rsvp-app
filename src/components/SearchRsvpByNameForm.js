@@ -12,9 +12,7 @@ export default function SearchRsvpByNameForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("INSIDE SUBMIT");
         if(groupSearchInput) {
-            console.log("MADE IT HERE");
             router.push(`${process.env.NEXT_PUBLIC_HOST}/` + path);
         }        
     };

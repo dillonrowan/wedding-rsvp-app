@@ -16,22 +16,24 @@ export default async function Page({ params }) {
         }
     );
     const payload = await res.json();
-    payload.sort();
-    payload.forEach(rsvpGroup => {
-        rsvpGroup.rsvps.sort();
-    });
+    
     const status = res.status;
-    // TODO: find out why we are not making a request for everytime we navigate to this route without refreshing.
+    if(status == 200) {
+        payload.forEach(rsvpGroup => {
+            sortByName(rsvpGroup.rsvps, rsvpGroup.groupLead);
+        });
+    }
+    
     return (
-        <div className="lg:pt-24 flex flex-col items-center">            
+        <div className="lg:pt-24 flex flex-col lg:items-center">            
             {   
                 status == 404 ? [
-                    <p key="404-explanation" className="font-cormorant">Could not find any rsvp's matching search input; try again</p>,
-                    <div key="404-search-rsvp-input"><SearchRsvpByNameForm /></div>]
+                    <p key="404-explanation" className="font-cormorant text-2xl lg:w-1/3">Could not find any rsvp's matching search input; please try again.</p>,
+                    <div key="404-search-rsvp-input" className="lg:w-1/3"><SearchRsvpByNameForm /></div>]
                     :
                     status != 200 ? 
-                        [<p key="202-explanation" className="font-cormorant">Something went wrong. Please reach out to us with the error and we will sort you out.</p>,
-                            <div key="result-error-message">Error: {payload.message}</div>]
+                        [<p key="202-explanation" className="font-cormorant text-2xl lg:w-1/3">Something went wrong. Please reach out to us with the error and we will sort you out.</p>,
+                            <div key="result-error-message" className="lg:w-1/3">Error: {payload.message}</div>]
                         :
                         <RsvpGroupSearchResultBody rsvpGroups={payload} />
             }            
@@ -39,3 +41,12 @@ export default async function Page({ params }) {
     );
 }
 
+function sortByName(rsvps, groupLead) {
+    rsvps.sort(function (a, b) {
+        if(b.name == groupLead) {
+            return 1;
+        }
+
+        return a.name.localeCompare(b.name);
+    });
+}
