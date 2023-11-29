@@ -2,7 +2,7 @@ import React from "react";
 import Link from "../../node_modules/next/link";
 const Navbar = () => {
     return (
-        <nav className="flex sm:justify-center space-x-4">
+        <nav className="hidden lg:flex sm:justify-center space-x-4">
             {[
                 ["Home", "/"],
                 ["Our Story", "/story"],
