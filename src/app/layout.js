@@ -16,11 +16,20 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
+    const navItems = [
+        ["Home", "/"],
+        ["Our Story", "/story"],
+        ["Photos", "/photos"],
+        ["Q + A", "/qa"],
+        ["Travel", "/travel"],
+        ["Things to Do", "/activities"],
+        ["Registry", "/registry"],
+        ["RSVP", "/rsvp"],
+    ];
     
     return (
         <html lang="en" className={`${cormorant.variable}`}>
-            {/* <script src="../path/to/flowbite/dist/flowbite.min.js"></script> */}
-
             <body>
 
                 {/* <div className="flex items-end lg:block title-content">
@@ -31,15 +40,13 @@ export default function RootLayout({ children }) {
                 </div> */}
                 <div className="grid grid-cols-[minmax(40px,_0.08fr)_minmax(0px,_1fr)_minmax(40px,_0.08fr)]">
                     {/* <div><button className="lg:hidden w-full text-4xl rounded shadow bg-gray-300">≡</button></div> */}
-                    <Drawer >
-                        <div>HI</div>
-                    </Drawer>
+                    <Drawer navItems={navItems}/>
                     <h1 className="font-cormorant justify-self-center self-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
                         Jennifer & Dillon
                     </h1>
                 </div>                
                 
-                <Navbar />
+                <Navbar navItems={navItems}/>
                 {children}
             </body>
         </html>

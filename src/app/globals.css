@@ -7,6 +7,6 @@
 	font-family: Cormorant;
 }
 
-.border-red {
-	border: 1px solid red;
+button {
+    -webkit-tap-highlight-color: transparent;
 }

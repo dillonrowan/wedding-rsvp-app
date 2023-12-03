@@ -1,18 +1,9 @@
 import React from "react";
 import Link from "../../node_modules/next/link";
-const Navbar = () => {
+const Navbar = (props) => {
     return (
         <nav className="hidden lg:flex sm:justify-center space-x-4">
-            {[
-                ["Home", "/"],
-                ["Our Story", "/story"],
-                ["Photos", "/photos"],
-                ["Q + A", "/qa"],
-                ["Travel", "/travel"],
-                ["Things to Do", "/activities"],
-                ["Registry", "/registry"],
-                ["RSVP", "/rsvp"],
-            ].map(([title, url]) => (
+            {props.navItems.map(([title, url]) => (
                 <Link
                     key={title}
                     href={url}
