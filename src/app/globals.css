@@ -10,3 +10,7 @@
 button {
     -webkit-tap-highlight-color: transparent;
 }
+
+a {
+    -webkit-tap-highlight-color: lightgray;
+}
