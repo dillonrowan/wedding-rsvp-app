@@ -14,3 +14,15 @@ button {
 a {
     -webkit-tap-highlight-color: lightgray;
 }
+
+section {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.podbar {
+    bottom:0;
+    position:fixed;
+    _position:absolute;
+    _top:expression(eval(document.documentElement.scrollTop+
+        (document.documentElement.clientHeight-this.offsetHeight)));
+}

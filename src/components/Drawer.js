@@ -5,11 +5,12 @@ import { useRouter, usePathname } from "next/navigation";
 
 export default function Drawer(props) {
     const pathname = usePathname();
-    console.log('THIS IS PATHNAME');
-    console.log(pathname)
+    console.log("THIS IS PATHNAME");
+    console.log(pathname);
     const [isOpen, setIsOpen] = useState(false);
     return (
         <>
+            {/* TODO: remove blue when clicking off drawer */}
             <div><button onClick={()=> {setIsOpen(true);}} className="lg:hidden w-full text-4xl bg-transparent font-cormorant font-bold">≡</button></div>
             <main
                 className={
@@ -35,15 +36,15 @@ export default function Drawer(props) {
                             </button>
                         </header>
                         {props.navItems.map(([title, url]) => (
-                                <Link
-                                    key={title}
-                                    href={url}
-                                    onClick={() => {
-                                        setIsOpen(false);
-                                    }}
-                                    className={pathname == url ? "bg-gray-200 font-cormorant px-3 text-slate-700 font-medium py-5" : "font-cormorant px-3 text-slate-700 font-medium py-5"}>
-                                    {title}
-                                </Link>
+                            <Link
+                                key={title}
+                                href={url}
+                                onClick={() => {
+                                    setIsOpen(false);
+                                }}
+                                className={pathname == url ? "bg-gray-200 font-cormorant px-3 text-slate-700 font-medium py-5" : "font-cormorant px-3 text-slate-700 font-medium py-5"}>
+                                {title}
+                            </Link>
                         ))}
                     </article>
                 </section>

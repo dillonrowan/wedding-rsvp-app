@@ -12,9 +12,9 @@ export default async function Page({ params, searchParams }) {
     };
 
     return (
-        <div className="flex justify-center">       
-            <div className="lg:pt-24 lg:w-1/3 flex flex-col items-center ">
-                <div className="font-cormorant text-2xl pb-8">
+        <div className="flex flex-col lg:items-center portrait:px-5 landscape:px-28 pt-20">       
+            <div className="lg:w-1/3">
+                <div className="font-cormorant text-2xl pb-8 text-center">
                     {status == 200 ? <p>RSVP data was successfully submitted!</p> : <p>Something went wrong. Please notify us and we'll sort you out.</p>}
                 </div>
                 <SubmitButton label="OK" onButtonClick={(e) => {handleOkClicked(e);}}/>
