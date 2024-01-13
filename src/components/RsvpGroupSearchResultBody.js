@@ -44,9 +44,9 @@ export default function RsvpGroupSearchResultBody(props) {
                             handleSubmit(e);
                         }}>
                         {props.rsvpGroups?.map((rsvpGroup) => (
-                            <div key={rsvpGroup.id} className="font-cormorant flex items-center pb-7">
+                            <div key={rsvpGroup.id} className="font-cormorant items-center pb-7">
                                 <input
-                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
+                                    className="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
                                     type="radio"
                                     name="rsvp-group"
                                     value={JSON.stringify(rsvpGroup)}
@@ -70,9 +70,7 @@ export default function RsvpGroupSearchResultBody(props) {
 
     return (
         <div>
-            <div>
-                <RsvpGroupUpdateForm rsvpGroup={selectedRsvpGroup} />
-            </div>
+            <RsvpGroupUpdateForm rsvpGroup={selectedRsvpGroup} />
         </div>
     );
 }

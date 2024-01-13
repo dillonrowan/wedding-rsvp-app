@@ -129,15 +129,15 @@ export default async function RsvpGroupUpdateForm(props) {
     };
 
     return (
-        <>
-            <p className="font-cormorant font-cormorant text-2xl pb-5">Please fill out what best describes your attending party.</p>
+        <>            
             <form
                 className="accent-purple-100 font-cormorant"
                 onSubmit={(e) => {
                     handleSubmit(e);
                 }}>
-                <div className="pb-10 text-xl">
-                    <label className="pr-1" htmlFor="email">What is the group's email?</label>
+                <div className="text-center pb-10 text-xl">
+                    <p className="font-cormorant font-cormorant text-2xl pb-5">Please fill out what best describes your attending party.</p>
+                    <label className="pr-1" htmlFor="email">What is your attending party's email?</label>
                     <input
                         type="text"
                         name="email"
@@ -147,13 +147,13 @@ export default async function RsvpGroupUpdateForm(props) {
                 {props.rsvpGroup.rsvps?.map((rsvp) => (
                     <div
                         key={rsvp.id}
-                        className="p-5 mb-10 text-xl border-3 bg-slate-100 rounded-lg drop-shadow-lg">
+                        className="p-5 mb-10 text-xl border-3 bg-stone-100 rounded-lg drop-shadow-2xl ">
                         <div className="font-cormorant font-bold text-2xl">{rsvp.name}</div>
 
                         {/* attending input */}
                         <div>
                             <input
-                                className="mr-2 w-5 h-5"
+                                className="mr-2 w-5 h-5 cursor-pointer"
                                 type="checkbox"
                                 id={rsvp.id}
                                 name={`${rsvp.id}|attending`}
@@ -171,7 +171,7 @@ export default async function RsvpGroupUpdateForm(props) {
                             <p className="italic">Dietary Restrictions:</p>
                             <div className="pb-2">
                                 <input
-                                    className="mr-2 w-5 h-5"
+                                    className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
                                     id="vegetarian"
                                     name={`${rsvp.id}|vegetarian`}
@@ -184,7 +184,7 @@ export default async function RsvpGroupUpdateForm(props) {
                             </div>
                             <div className="pb-2">
                                 <input
-                                    className="mr-2 w-5 h-5"
+                                    className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
                                     id="vegan"
                                     name={`${rsvp.id}|vegan`}
@@ -197,7 +197,7 @@ export default async function RsvpGroupUpdateForm(props) {
                             </div>
                             <div className="pb-2">
                                 <input
-                                    className="mr-2 w-5 h-5"
+                                    className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
                                     id="dietaryRestriction1"
                                     name={`${rsvp.id}|dietaryRestriction1`}
@@ -216,7 +216,7 @@ export default async function RsvpGroupUpdateForm(props) {
                             </div>
                             <div className="pb-2">
                                 <input
-                                    className="mr-2 w-5 h-5"
+                                    className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
                                     id="dietaryRestriction2"
                                     name={`${rsvp.id}|dietaryRestriction2`}
@@ -235,7 +235,7 @@ export default async function RsvpGroupUpdateForm(props) {
                             </div>
                             <div className="pb-2">
                                 <input
-                                    className="mr-2 w-5 h-5"
+                                    className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
                                     id="dietaryRestriction3"
                                     name={`${rsvp.id}|dietaryRestriction3`}
@@ -254,7 +254,7 @@ export default async function RsvpGroupUpdateForm(props) {
                             </div>
                             <div className="pb-2">
                                 <input
-                                    className="mr-2 w-5 h-5"
+                                    className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
                                     id="dietaryRestriction4"
                                     name={`${rsvp.id}|dietaryRestriction4`}
@@ -273,7 +273,7 @@ export default async function RsvpGroupUpdateForm(props) {
                             </div>
                             <div className="pb-2">
                                 <input
-                                    className="mr-2 w-5 h-5"
+                                    className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
                                     id="dietaryRestriction5"
                                     name={`${rsvp.id}|dietaryRestriction5`}
@@ -292,7 +292,7 @@ export default async function RsvpGroupUpdateForm(props) {
                             </div>
                             <div>
                                 <input
-                                    className="mr-2 w-5 h-5"
+                                    className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
                                     id="dietaryRestriction6"
                                     name={`${rsvp.id}|dietaryRestriction6`}
@@ -311,7 +311,7 @@ export default async function RsvpGroupUpdateForm(props) {
                             </p>
                             <div className="pb-2">
                                 <input
-                                    className="mr-2 w-5 h-5"
+                                    className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
                                     name={`${rsvp.id}|foodAllergy1`}
                                     value="PEANUTS"
@@ -327,7 +327,7 @@ export default async function RsvpGroupUpdateForm(props) {
                             </div>
                             <div className="pb-2">
                                 <input
-                                    className="mr-2 w-5 h-5"
+                                    className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
                                     name={`${rsvp.id}|foodAllergy2`}
                                     value="FISH"
@@ -343,7 +343,7 @@ export default async function RsvpGroupUpdateForm(props) {
                             </div>
                             <div className="pb-2">
                                 <input
-                                    className="mr-2 w-5 h-5"
+                                    className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
                                     name={`${rsvp.id}|foodAllergy3`}
                                     value="EGGS"
@@ -359,7 +359,7 @@ export default async function RsvpGroupUpdateForm(props) {
                             </div>
                             <div className="pb-2">
                                 <input
-                                    className="mr-2 w-5 h-5"
+                                    className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
                                     name={`${rsvp.id}|foodAllergy4`}
                                     value="SOY_PRODUCTS"
@@ -377,7 +377,7 @@ export default async function RsvpGroupUpdateForm(props) {
                             </div>
                             <div className="pb-2">
                                 <input
-                                    className="mr-2 w-5 h-5"
+                                    className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
                                     name={`${rsvp.id}|foodAllergy5`}
                                     value="DAIRY"
@@ -388,7 +388,7 @@ export default async function RsvpGroupUpdateForm(props) {
                             </div>
                             <div className="pb-2">
                                 <input
-                                    className="mr-2 w-5 h-5"
+                                    className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
                                     name={`${rsvp.id}|foodAllergy6`}
                                     value="TREE_NUTS"
@@ -404,7 +404,7 @@ export default async function RsvpGroupUpdateForm(props) {
                             </div>
                             <div>
                                 <input
-                                    className="mr-2 w-5 h-5"
+                                    className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
                                     name={`${rsvp.id}|foodAllergy7`}
                                     value="MUSHROOM"
