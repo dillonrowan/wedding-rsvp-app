@@ -2,7 +2,7 @@ import "./globals.css";
 import { Cormorant } from "next/font/google";
 import Navbar from "../components/Navbar";
 import Drawer from "../components/Drawer";
-import Image from 'next/image'
+import Image from "next/image";
 
 
 const cormorant = Cormorant({ 

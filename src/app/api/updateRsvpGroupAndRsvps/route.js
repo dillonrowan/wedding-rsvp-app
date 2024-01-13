@@ -1,6 +1,5 @@
 export async function POST(request) {
     const data = await request.json();
-    console.log(JSON.stringify(data));
     const res = await fetch(
         "http://api.jenniferanddillonwedding.com:8080/api/update-rsvp-and-rsvp-groups",
         {

@@ -5,8 +5,6 @@ import { useRouter, usePathname } from "next/navigation";
 
 export default function Drawer(props) {
     const pathname = usePathname();
-    console.log("THIS IS PATHNAME");
-    console.log(pathname);
     const [isOpen, setIsOpen] = useState(false);
     return (
         <>
