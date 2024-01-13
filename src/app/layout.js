@@ -55,7 +55,7 @@ export default function RootLayout({ children }) {
                     </div>    
                 </div>                        
                 
-                <div className="pt-12 pb-5">{children}</div>
+                <div className="pt-20 pb-5">{children}</div>
                 <Image
                     className="rotate-180 podbar -z-10"
                     src="/leaves.webp"
