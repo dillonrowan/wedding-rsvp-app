@@ -31,8 +31,23 @@ export default function RootLayout({ children }) {
     
     return (
         <html lang="en" className={`${cormorant.variable} h-full`} >
+            
             <body >
-
+                <Image
+                    className="hidden lg:block -z-10 left-0 absolute"
+                    src="/AdobeStock_635505818.png"
+                    width={400}
+                    height={200}
+                    alt=""
+                /> 
+                <Image
+                    className="hidden lg:block -z-10  absolute right-0"
+                    src="/AdobeStock_635505818_copy.png"
+                    width={300}
+                    height={1000}
+                    alt=""
+                /> 
+                
                 {/* Header for non-mobile */}
                 <div className="hidden lg:block">
                     <div className="grid grid-cols-[minmax(40px,_0.08fr)_minmax(0px,_1fr)_minmax(40px,_0.08fr)]">
@@ -55,7 +70,7 @@ export default function RootLayout({ children }) {
                     </div>    
                 </div>                        
                 
-                <div className="pt-20 pb-5 portrait:px-5 landscape:px-28">{children}</div>
+                <div className="pt-20 lg:pt-8 pb-5 portrait:px-5 landscape:px-28">{children}</div>
                 {/* <Image
                     className="rotate-180 podbar -z-10"
                     src="/leaves.webp"

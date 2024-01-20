@@ -26,3 +26,30 @@ section {
     _top:expression(eval(document.documentElement.scrollTop+
         (document.documentElement.clientHeight-this.offsetHeight)));
 }
+
+.flip-x-axis {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    transform: rotate(90deg);
+}
+
+.flip-y-axis {
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+}
+
+.padding-top-page-content {
+    padding-top: 2rem;
+}
+
+/* mobile */
+@media only screen and (max-width: 600px) {
+    .padding-top-page-content {
+        padding-top: 5rem;
+    }
+}
+
+
+.corner-leaves-top {
+    top: -5rem;
+}

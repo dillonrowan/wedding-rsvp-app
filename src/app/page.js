@@ -13,22 +13,26 @@ export default async function Home() {
 
     return (
         <div className="font-cormorant">
-            <Image
-                className=""
-                src="/DSC_2079.JPG"
-                width={3000}
-                height={2000}
-                alt=""
-            />
-            <Image
-                className="block lg:hidden -z-10 left-0 absolute"
+            <div className="lg:mx-20">
+                <Image
+                    className=""
+                    src="/DSC_2079.JPG"
+                    width={1000}
+                    height={1000}
+                    alt=""
+                />
+            </div>
+            
+            {/* <Image
+                className="block lg:hidden landscape:hidden -z-10 left-0"
                 src="/image-from-rawpixel-id-13069117-original.png"
                 width={1000}
                 height={200}
                 alt=""
-            />                   
+            />        */}
+                         
             
-            <div className="lg:hidden pt-24 pb-12 text-4xl text-center">JENNIFER & DILLON</div>
+            <div className="lg:hidden pb-12 text-4xl text-center portrait:absolute portrait:top-96 portrait:mx-5 landscape:pt-12">JENNIFER & DILLON</div>
             <div className="text-xl">
                 <div className="text-center border-b-2 border-black pb-8 mx-20 lg:mx-96 lg:pt-8 ">
                     <div className="text-xl lg:text-3xl">WEDDING DAY</div>
