@@ -49,7 +49,15 @@ section {
     }
 }
 
+.corner-leaves-top-left {
+    top: -1rem;
+}
 
-.corner-leaves-top {
-    top: -5rem;
+
+.corner-leaves-top-right {
+    top: -8rem;
+}
+
+.disable-drag {
+    -webkit-user-drag: none;
 }
