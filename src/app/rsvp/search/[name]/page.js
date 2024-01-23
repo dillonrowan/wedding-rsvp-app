@@ -25,7 +25,7 @@ export default async function Page({ params }) {
     }
     
     return (
-        <div className="flex flex-col lg:items-center portrait:px-5 landscape:px-28">            
+        <div className="flex flex-col lg:items-center">            
             {   
                 status == 404 ? [
                     <p key="404-explanation" className="font-cormorant text-2xl lg:w-1/3  pt-20">Could not find any rsvp's matching search input; please try again.</p>,
