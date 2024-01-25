@@ -1,15 +1,7 @@
-"use client";
-import { useRouter } from "next/navigation";
-import SubmitButton from "../components/SubmitButton";
+import NavigationButton from "../components/NavigationButton";
 import Image from "next/image";
 
-
 export default async function Home() {
-    const router = useRouter();
-
-    const handleRsvpButtonClicked = (e) => {
-        router.push("/rsvp");
-    };
 
     return (
         <div className="font-cormorant flex flex-col items-center gap-8">
@@ -43,7 +35,7 @@ export default async function Home() {
             </div>
             
             <div className="w-1/3">
-                <SubmitButton label="RSVP" onButtonClick={(e) => {handleRsvpButtonClicked(e);}}/>
+                <NavigationButton route="rsvp" />
             </div>
             <div className="border-b-2 border-t-2 border-gray mt-5 w-full py-8">
                 <div>Reception: TBD</div>
