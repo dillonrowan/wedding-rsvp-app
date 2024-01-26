@@ -11,6 +11,7 @@ export default async function Home() {
                     src="/DSC_2079.JPG"
                     width={1000}
                     height={1000}
+                    priority={true}
                     alt=""
                 />
             </div>
@@ -20,6 +21,7 @@ export default async function Home() {
                 src="/AdobeStock_700933455.png"
                 width={200}
                 height={100}
+                priority={true}
                 alt=""
             />
             

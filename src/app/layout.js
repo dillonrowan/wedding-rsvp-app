@@ -38,6 +38,7 @@ export default function RootLayout({ children }) {
                     src="/AdobeStock_635505818.png"
                     width={400}
                     height={200}
+                    priority={true}
                     alt=""
                 /> 
                 <Image
@@ -45,6 +46,7 @@ export default function RootLayout({ children }) {
                     src="/AdobeStock_635505818_copy.png"
                     width={300}
                     height={1000}
+                    priority={true}
                     alt=""
                 /> 
                 
