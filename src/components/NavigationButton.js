@@ -4,13 +4,13 @@ import SubmitButton from "./SubmitButton";
 
 export default function NavigationButton(props) {
 
-  const router = useRouter();
+    const router = useRouter();
 
-  const handleButtonClicked = (e) => {
-      router.push("/" + props.route);
-  };
+    const handleButtonClicked = (e) => {
+        router.push("/" + props.route);
+    };
 
-  return (
-    <SubmitButton label="RSVP" onButtonClick={(e) => {handleButtonClicked(e);}}/>
-  );
+    return (
+        <SubmitButton label="RSVP" onButtonClick={(e) => {handleButtonClicked(e);}}/>
+    );
 }
