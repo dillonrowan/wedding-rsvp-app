@@ -33,19 +33,27 @@ export default function RootLayout({ children }) {
         <html lang="en" className={`${cormorant.variable} h-full`} >
             
             <body >
-                <Image
+                {/* <Image
                     className="hidden lg:block -z-10 left-0 absolute corner-leaves-top-left"
                     src="/AdobeStock_635505818.png"
                     width={400}
                     height={200}
                     priority={true}
                     alt=""
-                /> 
+                />  */}
                 <Image
                     className="hidden lg:block -z-10  absolute right-0 corner-leaves-top-right"
                     src="/AdobeStock_635505818_copy.png"
                     width={300}
                     height={1000}
+                    priority={true}
+                    alt=""
+                /> 
+                <Image
+                    className="hidden lg:block -z-10 left-0 absolute corner-leaves-top-left"
+                    src="/vine_sample.webp"
+                    width={400}
+                    height={200}
                     priority={true}
                     alt=""
                 /> 
