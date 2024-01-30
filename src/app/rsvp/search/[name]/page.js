@@ -1,6 +1,8 @@
-import React from "react";
+import React, { Suspense } from "react";
 import RsvpGroupSearchResultBody from "../../../../components/RsvpGroupSearchResultBody";
 import SearchRsvpByNameForm from "../../../../components/SearchRsvpByNameForm";
+import Loading from "../../../loading";
+
 
 export default async function Page({ params }) {
     const res = await fetch(
@@ -25,6 +27,7 @@ export default async function Page({ params }) {
     }
     
     return (
+      <Suspense fallback={<Loading />}>
         <div className="flex flex-col lg:items-center">            
             {   
                 status == 404 ? [
@@ -38,6 +41,7 @@ export default async function Page({ params }) {
                         <RsvpGroupSearchResultBody rsvpGroups={payload} />
             }            
         </div>        
+      </Suspense>
     );
 }
 
