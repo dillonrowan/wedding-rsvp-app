@@ -24,7 +24,6 @@ export default function RootLayout({ children }) {
         ["Photos", "/photos"],
         ["Q + A", "/qa"],
         ["Travel", "/travel"],
-        ["Things to Do", "/activities"],
         ["Registry", "/registry"],
         ["RSVP", "/rsvp"],
     ];

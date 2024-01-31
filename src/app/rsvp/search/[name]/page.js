@@ -2,6 +2,7 @@ import React from "react";
 import RsvpGroupSearchResultBody from "../../../../components/RsvpGroupSearchResultBody";
 import SearchRsvpByNameForm from "../../../../components/SearchRsvpByNameForm";
 
+
 export default async function Page({ params }) {
     const res = await fetch(
         `http://api.jenniferanddillonwedding.com:8080/api/rsvp-groups-by-name/${params.name}`,
@@ -37,7 +38,7 @@ export default async function Page({ params }) {
                         :
                         <RsvpGroupSearchResultBody rsvpGroups={payload} />
             }            
-        </div>        
+        </div>       
     );
 }
 
