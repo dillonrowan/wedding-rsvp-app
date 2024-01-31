@@ -1,7 +1,6 @@
-import React, { Suspense } from "react";
+import React from "react";
 import RsvpGroupSearchResultBody from "../../../../components/RsvpGroupSearchResultBody";
 import SearchRsvpByNameForm from "../../../../components/SearchRsvpByNameForm";
-import Loading from "../../../loading";
 
 
 export default async function Page({ params }) {
@@ -27,21 +26,19 @@ export default async function Page({ params }) {
     }
     
     return (
-        <Suspense fallback={<Loading />}>
-            <div className="flex flex-col lg:items-center">            
-                {   
-                    status == 404 ? [
-                        <p key="404-explanation" className="font-cormorant text-2xl lg:w-1/3  pt-20">Could not find any rsvp's matching search input; please try again.</p>,
-                        <div key="404-search-rsvp-input" className="lg:w-1/3"><SearchRsvpByNameForm /></div>]
+        <div className="flex flex-col lg:items-center">            
+            {   
+                status == 404 ? [
+                    <p key="404-explanation" className="font-cormorant text-2xl lg:w-1/3  pt-20">Could not find any rsvp's matching search input; please try again.</p>,
+                    <div key="404-search-rsvp-input" className="lg:w-1/3"><SearchRsvpByNameForm /></div>]
+                    :
+                    status != 200 ? 
+                        [<p key="202-explanation" className="font-cormorant text-2xl lg:w-1/3">Something went wrong. Please reach out to us with the error and we will sort you out.</p>,
+                            <div key="result-error-message" className="lg:w-1/3">Error: {payload.message}</div>]
                         :
-                        status != 200 ? 
-                            [<p key="202-explanation" className="font-cormorant text-2xl lg:w-1/3">Something went wrong. Please reach out to us with the error and we will sort you out.</p>,
-                                <div key="result-error-message" className="lg:w-1/3">Error: {payload.message}</div>]
-                            :
-                            <RsvpGroupSearchResultBody rsvpGroups={payload} />
-                }            
-            </div>        
-        </Suspense>
+                        <RsvpGroupSearchResultBody rsvpGroups={payload} />
+            }            
+        </div>       
     );
 }
 
