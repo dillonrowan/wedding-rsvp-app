@@ -3,7 +3,7 @@ import { Cormorant } from "next/font/google";
 import Navbar from "../components/Navbar";
 import Drawer from "../components/Drawer";
 import Image from "next/image";
-
+import FloorFoliage from "@/components/FloorFoliage";
 
 const cormorant = Cormorant({ 
     subsets: ["latin"],
@@ -70,13 +70,7 @@ export default function RootLayout({ children }) {
                 </div>                        
                 
                 <div className="pt-20 lg:pt-8 pb-5 portrait:px-5 landscape:px-28">{children}</div>
-                {/* <Image
-                    className="rotate-180 podbar -z-10"
-                    src="/leaves.webp"
-                    width={2000}
-                    height={1000}
-                    alt=""
-                /> */}
+                <FloorFoliage />
             </body>
         </html>
     );

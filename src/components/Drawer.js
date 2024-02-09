@@ -1,14 +1,27 @@
 "use client";
 import Link from "../../node_modules/next/link";
 import React, { useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export default function Drawer(props) {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
+
+    function disableScrolling() {
+        if (typeof window != "undefined" && window.document) {
+            document.body.style.overflow = "hidden";
+        }
+    }
+
+    function enableScrolling() {
+        if (typeof window != "undefined" && window.document) {
+            document.body.style.overflow = "visible";
+        }
+    }
+
     return (
         <>
-            {/* TODO: remove blue when clicking off drawer */}
+            { isOpen ? disableScrolling() : enableScrolling() }
             <div><button onClick={()=> {setIsOpen(true);}} className="lg:hidden w-full text-4xl bg-transparent font-cormorant font-bold">≡</button></div>
             <main
                 className={
