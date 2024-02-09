@@ -8,15 +8,15 @@ export default function Drawer(props) {
     const [isOpen, setIsOpen] = useState(false);
 
     function disableScrolling() {
-      if (typeof window != 'undefined' && window.document) {
-          document.body.style.overflow = 'hidden';
-      }
+        if (typeof window != "undefined" && window.document) {
+            document.body.style.overflow = "hidden";
+        }
     }
 
     function enableScrolling() {
-      if (typeof window != 'undefined' && window.document) {
-          document.body.style.overflow = 'visible';
-      }
+        if (typeof window != "undefined" && window.document) {
+            document.body.style.overflow = "visible";
+        }
     }
 
     return (

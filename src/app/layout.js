@@ -71,13 +71,6 @@ export default function RootLayout({ children }) {
                 
                 <div className="pt-20 lg:pt-8 pb-5 portrait:px-5 landscape:px-28">{children}</div>
                 <FloorFoliage />
-                {/* <Image
-                    className="rotate-180 podbar -z-10"
-                    src="/leaves.webp"
-                    width={2000}
-                    height={1000}
-                    alt=""
-                /> */}
             </body>
         </html>
     );
