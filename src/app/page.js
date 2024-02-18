@@ -7,7 +7,7 @@ export default async function Home() {
         <div className="font-cormorant flex flex-col items-center gap-8">
             <div className="">
                 <Image
-                    className=""
+                    loading="eager"
                     src="/DSC_2079.JPG"
                     width={1000}
                     height={1000}
@@ -16,6 +16,7 @@ export default async function Home() {
             </div>
             
             <Image
+                loading="eager"
                 className="lg:hidden"
                 src="/AdobeStock_700933455.png"
                 width={200}

@@ -16,6 +16,7 @@ export default function FloorFoliage(props) {
             {
                 isShowingFloorImage() ? 
                     <Image
+                        loading="eager"
                         className="rotate-180 podbar -z-10 lg:hidden"
                         src="/leaves.webp"
                         width={2000}
