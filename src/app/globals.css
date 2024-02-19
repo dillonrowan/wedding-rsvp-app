@@ -50,12 +50,16 @@ section {
 }
 
 .corner-leaves-top-left {
-    top: -1rem;
+    top: -3rem;
+    left: -5rem;
 }
 
 
 .corner-leaves-top-right {
-    top: -8rem;
+    top: -3rem;
+    right: -5rem;
+    /* transform: rotate(90deg); */
+    transform: scaleX(-1);
 }
 
 .disable-drag {
@@ -77,4 +81,9 @@ section {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.oval {
+    clip-path: ellipse(28rem 31.5rem);
+    
 }
