@@ -6,7 +6,7 @@ export default async function Home() {
     return (
         <div className="font-cormorant flex flex-col items-center gap-8">
             <div className="">
-                {/* <Image
+                <Image
                     loading="eager"
                     className="hidden lg:block oval"
                     src="/DSC_2079_crop.JPG"
@@ -21,14 +21,14 @@ export default async function Home() {
                     width={1000}
                     height={1000}
                     alt=""
-                /> */}
-                <Image
+                />
+                {/* <Image
                     className=""
                     src="/DSC_2079.JPG"
                     width={1000}
                     height={1000}
                     alt=""
-                />
+                /> */}
             </div>
             
             <Image

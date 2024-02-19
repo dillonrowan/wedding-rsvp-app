@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
                 <Image
                     loading="eager"
                     className="hidden lg:block -z-10 absolute corner-leaves-top-left"
-                    src="/AdobeStock_575265534_Preview.png"
+                    src="/AdobeStock_575265534.png"
                     width={500}
                     height={200}
                     alt=""
@@ -43,7 +43,7 @@ export default function RootLayout({ children }) {
                 <Image
                     loading="eager"
                     className="hidden lg:block -z-10  absolute corner-leaves-top-right"
-                    src="/AdobeStock_575265534_Preview.png"
+                    src="/AdobeStock_575265534.png"
                     width={500}
                     height={1000}
                     alt=""
@@ -71,7 +71,7 @@ export default function RootLayout({ children }) {
                     </div>    
                 </div>                        
                 
-                <div className="pt-20 pb-5 portrait:px-5 landscape:px-28">{children}</div>
+                <div className="pt-20 lg:pt-14 pb-5 portrait:px-5 landscape:px-28">{children}</div>
                 <FloorFoliage />
             </body>
         </html>
