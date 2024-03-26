@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 export default function FloorFoliage(props) {
     const pathname = usePathname();
-    const pathsWithoutImage = ["/", "/photos", "/travel"];
+    const pathsWithoutImage = ["/", "/photos", "/travel", "/story"];
 
     function isShowingFloorImage() {
         return !pathsWithoutImage.includes(pathname);
