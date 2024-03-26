@@ -34,9 +34,9 @@ export default async function Home() {
             <Image
                 loading="eager"
                 className="lg:hidden"
-                src="/AdobeStock_700933455.png"
+                src="/AdobeStock_700933455_resized.png"
                 width={200}
-                height={100}
+                height={200}
                 alt=""
             />
             
