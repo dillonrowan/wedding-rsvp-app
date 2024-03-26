@@ -22,13 +22,6 @@ export default async function Home() {
                     height={1000}
                     alt=""
                 />
-                {/* <Image
-                    className=""
-                    src="/DSC_2079.JPG"
-                    width={1000}
-                    height={1000}
-                    alt=""
-                /> */}
             </div>
             
             <Image

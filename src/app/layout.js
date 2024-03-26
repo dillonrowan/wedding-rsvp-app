@@ -35,17 +35,17 @@ export default function RootLayout({ children }) {
                 <Image
                     loading="eager"
                     className="hidden lg:block -z-10 absolute corner-leaves-top-left"
-                    src="/AdobeStock_575265534.png"
+                    src="/AdobeStock_575265534_resized.png"
                     width={500}
-                    height={200}
+                    height={558}
                     alt=""
                 /> 
                 <Image
                     loading="eager"
                     className="hidden lg:block -z-10  absolute corner-leaves-top-right"
-                    src="/AdobeStock_575265534.png"
+                    src="/AdobeStock_575265534_resized.png"
                     width={500}
-                    height={1000}
+                    height={558}
                     alt=""
                 /> 
                 
