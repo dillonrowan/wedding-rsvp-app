@@ -9,17 +9,17 @@ export default async function Home() {
                 <Image
                     loading="eager"
                     className="hidden lg:block oval"
-                    src="/DSC_2079_crop.JPG"
+                    src="/DSC_2079_crop_resized.JPG"
                     width={1000}
-                    height={1000}
+                    height={1010}
                     alt=""
                 />
                 <Image
                     loading="eager"
                     className="lg:hidden"
-                    src="/DSC_2079.JPG"
-                    width={1000}
-                    height={1000}
+                    src="/DSC_2079_resized.JPG"
+                    width={320}
+                    height={214}
                     alt=""
                 />
             </div>
