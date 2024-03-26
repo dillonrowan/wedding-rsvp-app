@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 export default function FloorFoliage(props) {
     const pathname = usePathname();
-    const pathsWithoutImage = ["/", "/photos", "/travel"];
+    const pathsWithoutImage = ["/", "/photos", "/travel", "/story"];
 
     function isShowingFloorImage() {
         return !pathsWithoutImage.includes(pathname);
@@ -16,6 +16,7 @@ export default function FloorFoliage(props) {
             {
                 isShowingFloorImage() ? 
                     <Image
+                        loading="eager"
                         className="rotate-180 podbar -z-10 lg:hidden"
                         src="/leaves.webp"
                         width={2000}

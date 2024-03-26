@@ -7,15 +7,32 @@ export default async function Home() {
         <div className="font-cormorant flex flex-col items-center gap-8">
             <div className="">
                 <Image
-                    className=""
+                    loading="eager"
+                    className="hidden lg:block oval"
+                    src="/DSC_2079_crop.JPG"
+                    width={1000}
+                    height={1000}
+                    alt=""
+                />
+                <Image
+                    loading="eager"
+                    className="lg:hidden"
                     src="/DSC_2079.JPG"
                     width={1000}
                     height={1000}
                     alt=""
                 />
+                {/* <Image
+                    className=""
+                    src="/DSC_2079.JPG"
+                    width={1000}
+                    height={1000}
+                    alt=""
+                /> */}
             </div>
             
             <Image
+                loading="eager"
                 className="lg:hidden"
                 src="/AdobeStock_700933455.png"
                 width={200}
