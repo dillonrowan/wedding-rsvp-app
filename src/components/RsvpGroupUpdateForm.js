@@ -2,6 +2,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import SubmitButton from "./SubmitButton";
 import Image from "next/image";
+import FloorFoliage from "./FloorFoliage";
 
 
 export default async function RsvpGroupUpdateForm(props) {
@@ -424,13 +425,7 @@ export default async function RsvpGroupUpdateForm(props) {
                 ))}
                 <SubmitButton label="SUBMIT" />
             </form>
-            <Image
-                className="rotate-180 podbar -z-10 left-0"
-                src="/leaves.webp"
-                width={2000}
-                height={1000}
-                alt=""
-            />
+            <FloorFoliage />
         </>
     );
 }
