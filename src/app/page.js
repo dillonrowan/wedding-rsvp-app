@@ -9,34 +9,27 @@ export default async function Home() {
                 <Image
                     loading="eager"
                     className="hidden lg:block oval"
-                    src="/DSC_2079_crop.JPG"
+                    src="/DSC_2079_crop_resized.JPG"
                     width={1000}
-                    height={1000}
+                    height={1010}
                     alt=""
                 />
                 <Image
                     loading="eager"
                     className="lg:hidden"
-                    src="/DSC_2079.JPG"
-                    width={1000}
-                    height={1000}
+                    src="/DSC_2079_resized.JPG"
+                    width={320}
+                    height={214}
                     alt=""
                 />
-                {/* <Image
-                    className=""
-                    src="/DSC_2079.JPG"
-                    width={1000}
-                    height={1000}
-                    alt=""
-                /> */}
             </div>
             
             <Image
                 loading="eager"
                 className="lg:hidden"
-                src="/AdobeStock_700933455.png"
+                src="/AdobeStock_700933455_resized.png"
                 width={200}
-                height={100}
+                height={200}
                 alt=""
             />
             

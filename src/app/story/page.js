@@ -13,10 +13,18 @@ export default function Story() {
             <div className="flex justify-center">
                 <Image
                     loading="eager"
-                    className=""
-                    src="/AdobeStock_565269862.png"
+                    className="block lg:hidden"
+                    src="/AdobeStock_565269862_resized_mobile.png"
                     width={600}
                     height={100}
+                    alt=""
+                />
+                <Image
+                    loading="eager"
+                    className="hidden lg:block"
+                    src="/AdobeStock_565269862_resized.png"
+                    width={600}
+                    height={300}
                     alt=""
                 />
             </div>
