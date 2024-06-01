@@ -20,6 +20,8 @@ export default function FloorFoliage(props) {
                         className="rotate-180 podbar -z-10 lg:hidden"
                         src="/leaves_resized.tiff"
                         alt=""
+                        width={1921}
+                        height={636}
                     /> : null
             }
         </>
