@@ -87,3 +87,8 @@ section {
     clip-path: ellipse(28rem 31.5rem);
     
 }
+
+.image-scale {
+    width: 100%;
+    height: auto;
+}
