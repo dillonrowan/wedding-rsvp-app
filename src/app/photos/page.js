@@ -3,16 +3,7 @@ import Image from "next/image";
 export default function Photos() {
     return (
         <div className="flex flex-wrap gap-12 justify-center items-center">
-            <div className="w-40">
-                <Image
-                    className="image-scale"
-                    src="/jenn_dillon_yellow.JPG"
-                    sizes="100vw"
-                    width={500}
-                    height={300}
-                    alt=""
-                />
-            </div>
+            
             <div className="w-80">
                 <Image
                     className="image-scale"
@@ -63,11 +54,51 @@ export default function Photos() {
                     alt=""
                 />
             </div>
+            <div className="w-40">
+                <Image
+                    className="image-scale"
+                    src="/jenn_dillon_yellow.jpg"
+                    sizes="100vw"
+                    width={500}
+                    height={300}
+                    alt=""
+                />
+            </div>
+            <div className="w-56">
+                <Image
+                    className="image-scale"
+                    src="/Snapchat-689095128.jpg"
+                    sizes="100vw"
+                    width={500}
+                    height={300}
+                    alt=""
+                />
+            </div>
+            <div className="w-56">
+                <Image
+                    className="image-scale"
+                    src="/Snapchat-696623165.jpg"
+                    sizes="100vw"
+                    width={500}
+                    height={300}
+                    alt=""
+                />
+            </div>
+            <div className="w-56">
+                <Image
+                    className="image-scale"
+                    src="/Snapchat-1420453376.jpg"
+                    sizes="100vw"
+                    width={500}
+                    height={300}
+                    alt=""
+                />
+            </div>
             
             <div className="w-56">
                 <Image
                     className="image-scale"
-                    src="/Snapchat-689095128.JPG"
+                    src="/Snapchat-1738017968.jpg"
                     sizes="100vw"
                     width={500}
                     height={300}
@@ -77,7 +108,7 @@ export default function Photos() {
             <div className="w-56">
                 <Image
                     className="image-scale"
-                    src="/Snapchat-696623165.JPG"
+                    src="/20220304_160556.jpg"
                     sizes="100vw"
                     width={500}
                     height={300}
@@ -87,18 +118,7 @@ export default function Photos() {
             <div className="w-56">
                 <Image
                     className="image-scale"
-                    src="/Snapchat-1420453376.JPG"
-                    sizes="100vw"
-                    width={500}
-                    height={300}
-                    alt=""
-                />
-            </div>
-            
-            <div className="w-56">
-                <Image
-                    className="image-scale"
-                    src="/Snapchat-1738017968.JPG"
+                    src="/20220508_190549.jpg"
                     sizes="100vw"
                     width={500}
                     height={300}
@@ -108,7 +128,7 @@ export default function Photos() {
             <div className="w-56">
                 <Image
                     className="image-scale"
-                    src="/20220304_160556.JPG"
+                    src="/Snapchat-1763194078.jpg"
                     sizes="100vw"
                     width={500}
                     height={300}
@@ -118,7 +138,7 @@ export default function Photos() {
             <div className="w-56">
                 <Image
                     className="image-scale"
-                    src="/20220508_190549.JPG"
+                    src="/Snapchat-8882260.jpg"
                     sizes="100vw"
                     width={500}
                     height={300}
@@ -128,7 +148,7 @@ export default function Photos() {
             <div className="w-56">
                 <Image
                     className="image-scale"
-                    src="/Snapchat-1763194078.JPG"
+                    src="/Snapchat-300561173.jpg"
                     sizes="100vw"
                     width={500}
                     height={300}
@@ -138,7 +158,7 @@ export default function Photos() {
             <div className="w-56">
                 <Image
                     className="image-scale"
-                    src="/Snapchat-8882260.JPG"
+                    src="/Snapchat-291946842.jpg"
                     sizes="100vw"
                     width={500}
                     height={300}
@@ -148,7 +168,7 @@ export default function Photos() {
             <div className="w-56">
                 <Image
                     className="image-scale"
-                    src="/Snapchat-300561173.JPG"
+                    src="/Snapchat-1671815508.jpg"
                     sizes="100vw"
                     width={500}
                     height={300}
@@ -158,7 +178,7 @@ export default function Photos() {
             <div className="w-56">
                 <Image
                     className="image-scale"
-                    src="/Snapchat-291946842.JPG"
+                    src="/Snapchat-2126609232.jpg"
                     sizes="100vw"
                     width={500}
                     height={300}
@@ -168,7 +188,7 @@ export default function Photos() {
             <div className="w-56">
                 <Image
                     className="image-scale"
-                    src="/Snapchat-1671815508.JPG"
+                    src="/Snapchat-431010601.jpg"
                     sizes="100vw"
                     width={500}
                     height={300}
@@ -178,27 +198,7 @@ export default function Photos() {
             <div className="w-56">
                 <Image
                     className="image-scale"
-                    src="/Snapchat-2126609232.JPG"
-                    sizes="100vw"
-                    width={500}
-                    height={300}
-                    alt=""
-                />
-            </div>
-            <div className="w-56">
-                <Image
-                    className="image-scale"
-                    src="/Snapchat-431010601.JPG"
-                    sizes="100vw"
-                    width={500}
-                    height={300}
-                    alt=""
-                />
-            </div>
-            <div className="w-56">
-                <Image
-                    className="image-scale"
-                    src="/Snapchat-512175717.JPG"
+                    src="/Snapchat-512175717.jpg"
                     sizes="100vw"
                     width={500}
                     height={300}
@@ -208,7 +208,7 @@ export default function Photos() {
             <div className="w-72">
                 <Image
                     className="image-scale"
-                    src="/Snapchat-1496421123.JPG"
+                    src="/Snapchat-1496421123.jpg"
                     sizes="100vw"
                     width={500}
                     height={300}
