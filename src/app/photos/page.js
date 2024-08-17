@@ -57,7 +57,7 @@ export default function Photos() {
             <div className="w-40">
                 <Image
                     className="image-scale"
-                    src="/Snapchat-374369749.JPG"
+                    src="/jenn_dillon_yellow.JPG"
                     sizes="100vw"
                     width={500}
                     height={300}
