@@ -3,7 +3,16 @@ import Image from "next/image";
 export default function Photos() {
     return (
         <div className="flex flex-wrap gap-12 justify-center items-center">
-            
+            <div className="w-40">
+                <Image
+                    className="image-scale"
+                    src="/jenn_dillon_yellow.JPG"
+                    sizes="100vw"
+                    width={500}
+                    height={300}
+                    alt=""
+                />
+            </div>
             <div className="w-80">
                 <Image
                     className="image-scale"
@@ -54,16 +63,7 @@ export default function Photos() {
                     alt=""
                 />
             </div>
-            <div className="w-40">
-                <Image
-                    className="image-scale"
-                    src="/jenn_dillon_yellow.JPG"
-                    sizes="100vw"
-                    width={500}
-                    height={300}
-                    alt=""
-                />
-            </div>
+            
             <div className="w-56">
                 <Image
                     className="image-scale"
