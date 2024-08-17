@@ -16,11 +16,11 @@ export default function Qa() {
             </div>     
             <div className="pb-12 text-center">
                 <div className="text-3xl">What should I wear?</div>
-                <p className="text-xl text-stone-500">Our dress code is formal. For the ladies, please avoid wearing white or any color resembling dusty lavendar.</p>
+                <p className="text-xl text-stone-500">Our dress code is cocktail attire. For the ladies, please avoid wearing white or any color resembling plum.</p>
             </div>
             <div className="pb-12 text-center">
-                <div className="text-3xl">When is the reception?</div>
-                <p className="text-xl text-stone-500">That is yet to be determined.</p>
+                <div className="text-3xl">When is the ceremony?</div>
+                <p className="text-xl text-stone-500">The ceremony is 4:30 p.m with reception to follow.</p>
             </div>        
             <div className="pb-12 text-center">
                 <div className="text-3xl">Should I bring a gift?</div>

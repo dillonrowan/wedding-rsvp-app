@@ -44,11 +44,8 @@ export default async function Home() {
                 <div className="text-sm text-stone-500">12805 Arroyo Doble Dr, Manchaca, TX 78652</div>
             </div>
             
-            <div className="w-1/3">
+            <div className="w-1/3 pb-8">
                 <NavigationButton route="rsvp" />
-            </div>
-            <div className="border-b-2 border-t-2 border-gray mt-5 w-full py-8">
-                <div>Reception: TBD</div>
             </div>
         </div>        
     );
