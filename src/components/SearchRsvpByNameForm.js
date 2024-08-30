@@ -24,7 +24,7 @@ export default function SearchRsvpByNameForm() {
                     handleSubmit(e);
                 }}>
                 <div className="py-8"><SearchText handleInput={setGroupSearchInput} placeholder={"Full Name"} /></div>
-                <SubmitButton label="FIND YOUR INVENTATION" isDisabled={groupSearchInput ? false : true} />
+                <SubmitButton label="FIND YOUR INVITATION" isDisabled={groupSearchInput ? false : true} />
             </form>
         </div>
     );
