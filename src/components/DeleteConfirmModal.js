@@ -19,7 +19,7 @@ export default function DeleteConfirmModal(props) {
                             onClick={props.handleModalClose}
                             className="px-4 py-2 font-cormorant bg-black text-white text-base font-medium shadow-sm hover:bg-gray-700"
                         >
-                            CLOSE
+                            CANCEL
                         </button>                        
                     </div>
                 </div>

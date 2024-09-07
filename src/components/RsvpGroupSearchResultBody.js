@@ -76,7 +76,7 @@ export default function RsvpGroupSearchResultBody(props) {
 
     return (
         <div>
-            <RsvpGroupUpdateForm rsvpGroup={selectedRsvpGroup} setRsvpData={handleRsvpGroupUpdate} searchName={props.searchName} />
+            <RsvpGroupUpdateForm rsvpGroup={selectedRsvpGroup} setRsvpData={handleRsvpGroupUpdate} />
         </div>
     );
 }

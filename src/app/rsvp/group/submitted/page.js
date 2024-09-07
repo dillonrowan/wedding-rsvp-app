@@ -19,7 +19,7 @@ export default async function Page({ params, searchParams }) {
                 <div className="font-cormorant text-2xl pb-8 text-center">
                     {
                         status == 200 ? <p>RSVP data was successfully submitted!</p> : 
-                        <div>Something went wrong. Please notify us and we'll sort you out. Status: {status}. Action: {action}. Status text: {statusText}.</div>
+                            <div>Something went wrong. Please notify us and we'll sort you out. Status: {status}. Action: {action}. Status text: {statusText}.</div>
                     }
                 </div>
                 <SubmitButton label="OK" onButtonClick={(e) => {handleOkClicked(e);}}/>
