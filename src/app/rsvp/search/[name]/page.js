@@ -8,8 +8,7 @@ import { revalidatePath } from "next/cache";
 export default async function Page({ params }) {
     // revalidatePath('/rsvp/search/[name]', 'page')
     const res = await fetch(
-        // `http://api.jenniferanddillonwedding.com:8080/api/rsvp-groups-by-name/${params.name}`,
-        `http://localhost:8080/api/rsvp-groups-by-name/${params.name}`,
+        `http://api.jenniferanddillonwedding.com:8080/api/rsvp-groups-by-name/${params.name}`,
         {
             cache: "no-cache",
             method: "GET",
