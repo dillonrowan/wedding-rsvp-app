@@ -1,11 +1,27 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect, useFormState } from "react";
 import { useRouter } from "next/navigation";
 import SubmitButton from "./SubmitButton";
-import Image from "next/image";
+import DeleteButton from "./DeleteButton";
 import FloorFoliage from "./FloorFoliage";
+import DeleteConfirmModal from "@/components/DeleteConfirmModal";
 
+export default function RsvpGroupUpdateForm(props) {
+    const [isShowingDeleteModal, setIsShowingDeleteModal] = useState(false);
 
-export default async function RsvpGroupUpdateForm(props) {
+    const closeModal = () => {
+        setIsShowingDeleteModal(false);
+    };
+
+    const openModal = () => {
+        console.log("IN OPEN MODAL");
+        setIsShowingDeleteModal(true);
+    };
+
+    useEffect(() => {
+        // setIsShowingDeleteModal(true);
+    }, [props.rsvpGroup, isShowingDeleteModal]);
+
     const vegetarianRestrictions = [
         "NO_RED_MEAT",
         "NO_CHICKEN",
@@ -130,8 +146,12 @@ export default async function RsvpGroupUpdateForm(props) {
         return "";
     };
 
+    
+    
+
     return (
-        <>            
+        <>     
+            { isShowingDeleteModal && <DeleteConfirmModal handleModalClose={closeModal} /> }     
             <form
                 className="accent-purple-100 font-cormorant"
                 onSubmit={(e) => {
@@ -144,7 +164,11 @@ export default async function RsvpGroupUpdateForm(props) {
                     <div
                         key={rsvp.id}
                         className="p-5 mb-10 text-xl border-solid border-2 px-4 py-4 bg-white shadow-xl w-full ">
-                        <div className="font-cormorant font-bold text-2xl">{rsvp.name}</div>
+                        <div className="flex justify-between content-center">
+                            <div className="font-cormorant font-bold text-2xl">{rsvp.name}</div>
+                            <div><DeleteButton label="Remove" onButtonClick={openModal}/></div>
+                        </div>
+                        
 
                         {/* attending input */}
                         <div>
@@ -156,7 +180,7 @@ export default async function RsvpGroupUpdateForm(props) {
                                 defaultChecked={
                                     rsvp.attending ? "checked" : ""
                                 }></input>
-                            {/* TODO see if you can have store the id in another attribute, so htmlFor can reference a static name, allowing the text being clicked to toggle checked status */}
+                            
                             <label className="text-2xl" htmlFor={`${rsvp.id}|attending`}>
                                 Attending?
                             </label>

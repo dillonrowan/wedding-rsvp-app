@@ -1,7 +1,8 @@
 export async function POST(request) {
     const data = await request.json();
     const res = await fetch(
-        "http://api.jenniferanddillonwedding.com:8080/api/update-rsvp-and-rsvp-groups",
+        // "http://api.jenniferanddillonwedding.com:8080/api/update-rsvp-and-rsvp-groups",
+        "http://localhost:8080/api/update-rsvp-and-rsvp-groups",
         {
             method: "POST",
             mode: "no-cors",
