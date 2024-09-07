@@ -40,10 +40,10 @@ export default function RsvpGroupUpdateForm(props) {
         } else {
             let namesToRemoveTemp = namesToRemove;
             namesToRemoveTemp.delete(e.target.name);
-            setNamesToRemove(namesToRemoveTemp)
+            setNamesToRemove(namesToRemoveTemp);
         }        
         setStateUpdateKey(stateUpdateKey + 1);
-    }
+    };
 
     const deleteRsvps = async () => {
         const data = { groupId: props.rsvpGroup.id, names: Array.from(namesToRemove) };
@@ -52,7 +52,7 @@ export default function RsvpGroupUpdateForm(props) {
             method: "POST",
             body: JSON.stringify(data),
         });
-    }
+    };
 
     const upsertRsvps = async (rsvps) => {
         return await fetch("/api/upsertRsvps", {
@@ -60,7 +60,7 @@ export default function RsvpGroupUpdateForm(props) {
             method: "POST",
             body: JSON.stringify({groupId: props.rsvpGroup.id, rsvps: rsvps}),
         });
-    }
+    };
 
     const handleAddPerson = async (nameToAdd) => {
         setIsShowingAddModal(false);
@@ -70,7 +70,7 @@ export default function RsvpGroupUpdateForm(props) {
             attending: true,
             dietaryRestrictions: [],
             foodAllergies: []
-        })
+        });
         props.setRsvpData(rsvpGroup);
     };
 
@@ -172,7 +172,7 @@ export default function RsvpGroupUpdateForm(props) {
         router.push(
             `/rsvp/group/submitted?status=${resp.status}&action=update&statusText=${resp.statusText}`
         );
-    }
+    };
 
     // Return true if dietaryRestrictions has all entries to vegetarianRestrictions, else false.
     const isVegetarian = (dietaryRestrictions) => {
@@ -231,7 +231,7 @@ export default function RsvpGroupUpdateForm(props) {
                                             Remove
                                         </label>
                                     </div>
-                                : null}
+                                    : null}
                             </div>
                         </div>                        
 
