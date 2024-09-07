@@ -10,7 +10,7 @@ export default function DeleteConfirmModal(props) {
                     <h3 className="pb-8 font-cormorant font-cormorant text-2xl">Are you sure you want to remove this person from your the group?</h3>
                     <div className="flex justify-center gap-20">
                         <button
-                            onClick={props.handleModalClose}
+                            onClick={props.handleRemove}
                             className="px-4 py-2 font-cormorant bg-rose-700 text-white text-base font-medium shadow-sm hover:bg-gray-700"
                         >
                             Remove

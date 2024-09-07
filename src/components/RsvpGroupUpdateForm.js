@@ -5,17 +5,75 @@ import SubmitButton from "./SubmitButton";
 import DeleteButton from "./DeleteButton";
 import FloorFoliage from "./FloorFoliage";
 import DeleteConfirmModal from "@/components/DeleteConfirmModal";
+import AddPersonModal from "@/components/AddPersonModal";
+import AddButton from "./AddButton";
+import { revalidatePath } from 'next/cache'
+
 
 export default function RsvpGroupUpdateForm(props) {
     const [isShowingDeleteModal, setIsShowingDeleteModal] = useState(false);
+    const [nameToRemove, setNameToRemove] = useState("");
+    const [isShowingAddModal, setIsShowingAddModal] = useState(false);
 
-    const closeModal = () => {
+    const closeDeleteModal = () => {
+        setNameToRemove("");
         setIsShowingDeleteModal(false);
     };
 
-    const openModal = () => {
-        console.log("IN OPEN MODAL");
+    const openDeleteModal = (rsvpName) => {
         setIsShowingDeleteModal(true);
+    };
+
+    const closeAddModal = () => {
+        setIsShowingAddModal(false);
+    };
+
+    const openAddModal = (rsvpName) => {
+        setNameToRemove(rsvpName);
+        setIsShowingAddModal(true);
+    };
+
+    const removeSelection = async () => {
+        setIsShowingDeleteModal(false);
+        
+        const data = { groupId: props.rsvpGroup.id, names: [nameToRemove] };
+        const res = await fetch("/api/deleteRsvps", {
+            cache: "no-store",
+            method: "POST",
+            body: JSON.stringify(data),
+        });
+
+        const status = res.status;
+        if (status == 200) {
+            let rsvpGroup = props.rsvpGroup;
+            let rsvps = props.rsvpGroup.rsvps.filter((r) => r.name != nameToRemove);
+            rsvpGroup.rsvps = rsvps;
+            props.setRsvpData(rsvpGroup);
+        } else {
+            // show error modal here
+        }
+    };
+
+    const handleAddPerson = async (nameToAdd) => {
+        setIsShowingDeleteModal(false);
+        
+        const data = { groupId: props.rsvpGroup.id, names: [nameToAdd] };
+        const res = await fetch("/api/addRsvps", {
+            cache: "no-store",
+            method: "POST",
+            body: JSON.stringify(data),
+        });
+
+        const status = res.status;
+        if (status == 200) {
+            //revalidatePath('/rsvp/search/[name]', 'page')
+            router.push(`/rsvp/search/${props.searchName}?new=1`);
+            router.refresh();
+            //router.push(`/rsvp/search/`);
+        } else {
+            // show error modal here
+        }
+        setIsShowingAddModal(false);
     };
 
     useEffect(() => {
@@ -146,12 +204,10 @@ export default function RsvpGroupUpdateForm(props) {
         return "";
     };
 
-    
-    
-
     return (
         <>     
-            { isShowingDeleteModal && <DeleteConfirmModal handleModalClose={closeModal} /> }     
+            { isShowingAddModal && <AddPersonModal handleModalClose={closeAddModal} handleAdd={handleAddPerson} /> }   
+            { isShowingDeleteModal && <DeleteConfirmModal handleModalClose={closeDeleteModal} handleRemove={removeSelection} /> }     
             <form
                 className="accent-purple-100 font-cormorant"
                 onSubmit={(e) => {
@@ -166,7 +222,12 @@ export default function RsvpGroupUpdateForm(props) {
                         className="p-5 mb-10 text-xl border-solid border-2 px-4 py-4 bg-white shadow-xl w-full ">
                         <div className="flex justify-between content-center">
                             <div className="font-cormorant font-bold text-2xl">{rsvp.name}</div>
-                            <div><DeleteButton label="Remove" onButtonClick={openModal}/></div>
+                            <div>
+                                {props.rsvpGroup.modifyGroup && (rsvp.name != props.rsvpGroup.groupLead) ?
+                                    <DeleteButton label="Remove" onButtonClick={() => {
+                                        openDeleteModal(rsvp.name);
+                                    }}/> : null}                                
+                            </div>
                         </div>
                         
 
@@ -322,6 +383,9 @@ export default function RsvpGroupUpdateForm(props) {
                     </div>
                 ))}
                 <SubmitButton label="SUBMIT" />
+                <div className="pt-5">
+                    { props.rsvpGroup.modifyGroup ? <AddButton label="+ ADD PERSON" onButtonClick={openAddModal} /> : null }
+                </div>
             </form>
             <FloorFoliage />
         </>
