@@ -2,13 +2,11 @@
 import React, { useState, useEffect, useFormState } from "react";
 import { useRouter } from "next/navigation";
 import SubmitButton from "./SubmitButton";
-import DeleteButton from "./DeleteButton";
 import FloorFoliage from "./FloorFoliage";
 import DeleteConfirmModal from "@/components/DeleteConfirmModal";
 import AddPersonModal from "@/components/AddPersonModal";
 import AddButton from "./AddButton";
-import { revalidatePath } from "next/cache";
-
+import DeleteSubmitButton from "./DeleteSubmitButton";
 
 export default function RsvpGroupUpdateForm(props) {
     const [isShowingDeleteModal, setIsShowingDeleteModal] = useState(false);
@@ -35,28 +33,19 @@ export default function RsvpGroupUpdateForm(props) {
     };
 
     const handleRemoveCheckBoxClicked = (e) => {
-        console.log("INSIDE HANDLE REMOVE CLICK")
-        console.log(e.target.name)
-        console.log(e.target.value)
-        console.log(e.target.checked)
         if(e.target.checked) {
-            console.log("IN THE ON")
             let namesToRemoveTemp = namesToRemove;
-            console.log("namesToRemoveTemp", namesToRemoveTemp)
             namesToRemoveTemp.add(e.target.name.split("|")[1]);
             setNamesToRemove(namesToRemoveTemp);
         } else {
-            console.log("UNCHECK!")
             let namesToRemoveTemp = namesToRemove;
             namesToRemoveTemp.delete(e.target.name);
             setNamesToRemove(namesToRemoveTemp)
         }        
         setStateUpdateKey(stateUpdateKey + 1);
-        console.log(namesToRemove)
     }
 
     const deleteRsvps = async () => {
-        console.log(namesToRemove)
         const data = { groupId: props.rsvpGroup.id, names: Array.from(namesToRemove) };
         return await fetch("/api/deleteRsvps", {
             cache: "no-store",
@@ -82,25 +71,8 @@ export default function RsvpGroupUpdateForm(props) {
             dietaryRestrictions: [],
             foodAllergies: []
         })
-        props.setRsvpData(rsvpGroup)
-        
-        // const data = { groupId: props.rsvpGroup.id, names: [nameToAdd] };
-        // const res = await fetch("/api/addRsvps", {
-        //     cache: "no-store",
-        //     method: "POST",
-        //     body: JSON.stringify(data),
-        // });
-
-        // const status = res.status;
-        // router.push(
-        //     `/rsvp/group/submitted?status=${status}`
-        // );
-        // setIsShowingAddModal(false);
+        props.setRsvpData(rsvpGroup);
     };
-
-    useEffect(() => {
-        // setIsShowingDeleteModal(true);
-    }, [props.rsvpGroup, isShowingDeleteModal]);
 
     const vegetarianRestrictions = [
         "NO_RED_MEAT",
@@ -119,7 +91,6 @@ export default function RsvpGroupUpdateForm(props) {
 
         // Form input of type "checkbox" will only contain entries for items that are "checked"
         const data = new FormData(e.target);
-        console.log(data)
         let rsvpUpserts = {};
         props.rsvpGroup.rsvps.forEach((rsvp, index) => {
             rsvpUpserts[index] = {
@@ -132,14 +103,9 @@ export default function RsvpGroupUpdateForm(props) {
         });
 
         for (const [key, value] of data.entries()) {
-            console.log("key: ", key);
-            console.log("value: ", value);
             const index = key.split("|")[0];
-            console.log("AFTER INDEX")
             const guestName = key.split("|")[1];
-            console.log("AFTER GUEST NAME")
             rsvpUpserts[index].name = guestName;
-            console.log("AFTER UPSERTS")
             if (value) {    
 
                 if (key.includes("dietaryRestriction")) {
@@ -183,14 +149,6 @@ export default function RsvpGroupUpdateForm(props) {
                 name: rsvpUpserts[key].name
             });
         }
-
-        // const rsvpGroupToPost = [
-        //     {
-        //         id: props.rsvpGroup.id,
-        //         rsvps: rsvpsToPost,
-        //         email: email,
-        //     },
-        // ];
         
         let resp = await upsertRsvps(rsvpsToPost);
         if (resp.status != 200) {
@@ -199,7 +157,6 @@ export default function RsvpGroupUpdateForm(props) {
         }
 
         if (namesToRemove.size > 0) {
-            console.log("MADE IT TO DELETE!!!!")
             resp = await deleteRsvps();
             if (resp.status != 200) {
                 console.error(resp);
@@ -245,7 +202,7 @@ export default function RsvpGroupUpdateForm(props) {
     };
 
     return (
-        <>     <div>{namesToRemove.size}</div>
+        <>
             { isShowingAddModal && <AddPersonModal handleModalClose={closeAddModal} handleAdd={handleAddPerson} /> }   
               
             <form
@@ -264,11 +221,6 @@ export default function RsvpGroupUpdateForm(props) {
                         <div className="flex justify-between content-center">
                             <div className="font-cormorant font-bold text-2xl">{rsvp.name}</div>
                             <div>
-                                {/* {props.rsvpGroup.modifyGroup && (rsvp.name != props.rsvpGroup.groupLead) ?
-                                    <DeleteButton label="Remove" onButtonClick={() => {
-                                        openDeleteModal(rsvp.name);
-                                    }}/> : null}                                 */}
-                                {/* remove input */}
                                 {props.rsvpGroup.modifyGroup && (rsvp.name != props.rsvpGroup.groupLead) ?
                                     <div>
                                         <input
@@ -281,8 +233,7 @@ export default function RsvpGroupUpdateForm(props) {
                                     </div>
                                 : null}
                             </div>
-                        </div>
-                        
+                        </div>                        
 
                         {/* attending input */}
                         <div>
@@ -435,7 +386,7 @@ export default function RsvpGroupUpdateForm(props) {
                         </div>
                     </div>
                 ))}
-                { namesToRemove.size > 0 ? <button type="button" onClick={openDeleteModal}>SUBMIT</button> : <SubmitButton label="SUBMIT" /> }
+                { namesToRemove.size > 0 ? <DeleteSubmitButton label="SUBMIT" type="button" onButtonClick={openDeleteModal} />: <SubmitButton label="SUBMIT" /> }
                 
                 <div className="pt-5">
                     { props.rsvpGroup.modifyGroup ? <AddButton label="+ ADD PERSON" onButtonClick={openAddModal} /> : null }

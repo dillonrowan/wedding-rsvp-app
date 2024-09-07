@@ -2,21 +2,14 @@
 
 import { useState } from "react";
 import SearchText from "@/components/SearchText";
-import { useRouter, usePathname, redirect } from "next/navigation";
 import SubmitButton from "@/components/SubmitButton";
 
 export default function DeleteConfirmModal(props) {
     const [textInput, setTextInput] = useState("");
-    // const router = useRouter();
-    // const path = `/rsvp/search/${groupSearchInput}`;
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(e);
-        props.handleAdd(textInput);
-        // if(groupSearchInput) {
-        //     router.push(path);
-        // }        
+        props.handleAdd(textInput);   
     };
 
     return (
