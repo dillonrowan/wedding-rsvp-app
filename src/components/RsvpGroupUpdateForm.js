@@ -1,11 +1,79 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect, useFormState } from "react";
 import { useRouter } from "next/navigation";
 import SubmitButton from "./SubmitButton";
-import Image from "next/image";
 import FloorFoliage from "./FloorFoliage";
+import DeleteConfirmModal from "@/components/DeleteConfirmModal";
+import AddPersonModal from "@/components/AddPersonModal";
+import AddButton from "./AddButton";
+import DeleteSubmitButton from "./DeleteSubmitButton";
 
+export default function RsvpGroupUpdateForm(props) {
+    const [isShowingDeleteModal, setIsShowingDeleteModal] = useState(false);
+    const [stateUpdateKey, setStateUpdateKey] = useState(0);
+    const [namesToRemove, setNamesToRemove] = useState(new Set());
+    const [isShowingAddModal, setIsShowingAddModal] = useState(false);
 
-export default async function RsvpGroupUpdateForm(props) {
+    const closeDeleteModal = () => {
+        setIsShowingDeleteModal(false);
+    };
+
+    const openDeleteModal = () => {
+        //e.preventDefault();
+        //formData = new FormData(e.target);
+        setIsShowingDeleteModal(true);
+    };
+
+    const closeAddModal = () => {
+        setIsShowingAddModal(false);
+    };
+
+    const openAddModal = () => {
+        setIsShowingAddModal(true);
+    };
+
+    const handleRemoveCheckBoxClicked = (e) => {
+        if(e.target.checked) {
+            let namesToRemoveTemp = namesToRemove;
+            namesToRemoveTemp.add(e.target.name.split("|")[1]);
+            setNamesToRemove(namesToRemoveTemp);
+        } else {
+            let namesToRemoveTemp = namesToRemove;
+            namesToRemoveTemp.delete(e.target.name);
+            setNamesToRemove(namesToRemoveTemp);
+        }        
+        setStateUpdateKey(stateUpdateKey + 1);
+    };
+
+    const deleteRsvps = async () => {
+        const data = { groupId: props.rsvpGroup.id, names: Array.from(namesToRemove) };
+        return await fetch("/api/deleteRsvps", {
+            cache: "no-store",
+            method: "POST",
+            body: JSON.stringify(data),
+        });
+    };
+
+    const upsertRsvps = async (rsvps) => {
+        return await fetch("/api/upsertRsvps", {
+            cache: "no-store",
+            method: "POST",
+            body: JSON.stringify({groupId: props.rsvpGroup.id, rsvps: rsvps}),
+        });
+    };
+
+    const handleAddPerson = async (nameToAdd) => {
+        setIsShowingAddModal(false);
+        let rsvpGroup = props.rsvpGroup;
+        rsvpGroup.rsvps.push({
+            name: nameToAdd,
+            attending: true,
+            dietaryRestrictions: [],
+            foodAllergies: []
+        });
+        props.setRsvpData(rsvpGroup);
+    };
+
     const vegetarianRestrictions = [
         "NO_RED_MEAT",
         "NO_CHICKEN",
@@ -23,85 +91,88 @@ export default async function RsvpGroupUpdateForm(props) {
 
         // Form input of type "checkbox" will only contain entries for items that are "checked"
         const data = new FormData(e.target);
-
-        let rsvpUpdates = {};
-        props.rsvpGroup.rsvps.forEach((rsvp) => {
-            rsvpUpdates[rsvp.id] = {
+        let rsvpUpserts = {};
+        props.rsvpGroup.rsvps.forEach((rsvp, index) => {
+            rsvpUpserts[index] = {
                 dietaryRestrictions: new Set(),
                 foodAllergies: new Set(),
                 attending: false,
+                name: rsvp.name,
+                id: rsvp.id
             };
         });
-        let email = props.rsvpGroup.email;
 
         for (const [key, value] of data.entries()) {
-            if (value) {
-                const id = key.split("|")[0];
-
-                if (key == "email") {
-                    email = value;
-                }
+            const index = key.split("|")[0];
+            const guestName = key.split("|")[1];
+            rsvpUpserts[index].name = guestName;
+            if (value) {    
 
                 if (key.includes("dietaryRestriction")) {
-                    rsvpUpdates[id].dietaryRestrictions.add(value);
+                    rsvpUpserts[index].dietaryRestrictions.add(value);
                 }
 
                 if (key.includes("foodAllergy")) {
-                    rsvpUpdates[id].foodAllergies.add(value);
+                    rsvpUpserts[index].foodAllergies.add(value);
                 }
 
                 if (key.includes("vegetarian")) {
                     vegetarianRestrictions.forEach((item) =>
-                        rsvpUpdates[id].dietaryRestrictions.add(item)
+                        rsvpUpserts[index].dietaryRestrictions.add(item)
                     );
                 }
 
                 if (key.includes("vegan")) {
                     veganRestrictions.forEach((item) =>
-                        rsvpUpdates[id].dietaryRestrictions.add(item)
+                        rsvpUpserts[index].dietaryRestrictions.add(item)
                     );
                 }
 
                 // name for attending form input is rsvpId|attending
                 if (key.includes("attending")) {
-                    rsvpUpdates[id].attending = value ? true : false;
+                    rsvpUpserts[index].attending = value ? true : false;
                 }
             }
         }
 
         let rsvpsToPost = [];
-        for (const [key] of Object.entries(rsvpUpdates)) {
+        for (const [key] of Object.entries(rsvpUpserts)) {
             rsvpsToPost.push({
-                id: Number(key),
+                id: rsvpUpserts[key].id,
                 dietaryRestrictions: Array.from(
-                    rsvpUpdates[key].dietaryRestrictions
+                    rsvpUpserts[key].dietaryRestrictions
                 ).sort(),
                 foodAllergies: Array.from(
-                    rsvpUpdates[key].foodAllergies
+                    rsvpUpserts[key].foodAllergies
                 ).sort(),
-                attending: rsvpUpdates[key].attending,
+                attending: rsvpUpserts[key].attending,
+                name: rsvpUpserts[key].name
             });
         }
+        
+        let resp = await upsertRsvps(rsvpsToPost);
+        if (resp.status != 200) {
+            console.error(resp);
+            handleErrorPage(resp);
+        }
 
-        const rsvpGroupToPost = [
-            {
-                id: props.rsvpGroup.id,
-                rsvps: rsvpsToPost,
-                email: email,
-            },
-        ];
-
-        const res = await fetch("/api/updateRsvpGroupAndRsvps", {
-            cache: "no-store",
-            method: "POST",
-            body: JSON.stringify(rsvpGroupToPost),
-        });
-
-        const status = res.status;
+        if (namesToRemove.size > 0) {
+            resp = await deleteRsvps();
+            if (resp.status != 200) {
+                console.error(resp);
+                handleErrorPage(resp);
+            }
+        }   
         router.push(
-            `/rsvp/group/submitted?status=${status}`
-        );
+            `/rsvp/group/submitted?status=${resp.status}`
+        );     
     }
+
+    const handleErrorPage = (resp) => {
+        router.push(
+            `/rsvp/group/submitted?status=${resp.status}&action=update&statusText=${resp.statusText}`
+        );
+    };
 
     // Return true if dietaryRestrictions has all entries to vegetarianRestrictions, else false.
     const isVegetarian = (dietaryRestrictions) => {
@@ -131,33 +202,51 @@ export default async function RsvpGroupUpdateForm(props) {
     };
 
     return (
-        <>            
+        <>
+            { isShowingAddModal && <AddPersonModal handleModalClose={closeAddModal} handleAdd={handleAddPerson} /> }   
+              
             <form
                 className="accent-purple-100 font-cormorant"
                 onSubmit={(e) => {
                     handleSubmit(e);
                 }}>
+                { isShowingDeleteModal && <DeleteConfirmModal handleModalClose={closeDeleteModal} /> }   
                 <div className="text-centertext-xl">
                     <p className="font-cormorant font-cormorant text-2xl pb-5">Please fill out what best describes your attending party.</p>                   
                 </div>
-                {props.rsvpGroup.rsvps?.map((rsvp) => (
+                {props.rsvpGroup.rsvps?.map((rsvp, index) => (
                     <div
-                        key={rsvp.id}
+                        key={index}
                         className="p-5 mb-10 text-xl border-solid border-2 px-4 py-4 bg-white shadow-xl w-full ">
-                        <div className="font-cormorant font-bold text-2xl">{rsvp.name}</div>
+                        <div className="flex justify-between content-center">
+                            <div className="font-cormorant font-bold text-2xl">{rsvp.name}</div>
+                            <div>
+                                {props.rsvpGroup.modifyGroup && (rsvp.name != props.rsvpGroup.groupLead) ?
+                                    <div>
+                                        <input
+                                            className="mr-2 w-5 h-5 cursor-pointer"
+                                            type="checkbox" name={`${index}|${rsvp.name}|remove`} onClick={handleRemoveCheckBoxClicked}></input>
+                                        
+                                        <label className="text-2xl">
+                                            Remove
+                                        </label>
+                                    </div>
+                                    : null}
+                            </div>
+                        </div>                        
 
                         {/* attending input */}
                         <div>
                             <input
                                 className="mr-2 w-5 h-5 cursor-pointer"
                                 type="checkbox"
-                                id={rsvp.id}
-                                name={`${rsvp.id}|attending`}
+                                id={index}
+                                name={`${index}|${rsvp.name}|attending`}
                                 defaultChecked={
                                     rsvp.attending ? "checked" : ""
                                 }></input>
-                            {/* TODO see if you can have store the id in another attribute, so htmlFor can reference a static name, allowing the text being clicked to toggle checked status */}
-                            <label className="text-2xl" htmlFor={`${rsvp.id}|attending`}>
+                            
+                            <label className="text-2xl" htmlFor={`${index}|${rsvp.name}|attending`}>
                                 Attending?
                             </label>
                         </div>
@@ -170,7 +259,7 @@ export default async function RsvpGroupUpdateForm(props) {
                                     className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
                                     id="vegetarian"
-                                    name={`${rsvp.id}|vegetarian`}
+                                    name={`${index}|${rsvp.name}|vegetarian`}
                                     defaultChecked={
                                         isVegetarian(rsvp.dietaryRestrictions)
                                             ? "checked"
@@ -183,7 +272,7 @@ export default async function RsvpGroupUpdateForm(props) {
                                     className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
                                     id="vegan"
-                                    name={`${rsvp.id}|vegan`}
+                                    name={`${index}|${rsvp.name}|vegan`}
                                     defaultChecked={
                                         isVegan(rsvp.dietaryRestrictions)
                                             ? "checked"
@@ -196,7 +285,7 @@ export default async function RsvpGroupUpdateForm(props) {
                                     className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
                                     id="dietaryRestriction5"
-                                    name={`${rsvp.id}|dietaryRestriction5`}
+                                    name={`${index}|${rsvp.name}|dietaryRestriction5`}
                                     value="NO_PORK"
                                     defaultChecked={
                                         rsvp.dietaryRestrictions &&
@@ -221,7 +310,7 @@ export default async function RsvpGroupUpdateForm(props) {
                                 <input
                                     className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
-                                    name={`${rsvp.id}|foodAllergy1`}
+                                    name={`${index}|${rsvp.name}|foodAllergy1`}
                                     value="PEANUTS"
                                     defaultChecked={
                                         rsvp.foodAllergies &&
@@ -229,7 +318,7 @@ export default async function RsvpGroupUpdateForm(props) {
                                             ? "checked"
                                             : ""
                                     }></input>
-                                <label className="text-2xl" htmlFor={`${rsvp.id}|foodAllergy1`}>
+                                <label className="text-2xl" htmlFor={`${index}|${rsvp.name}|foodAllergy1`}>
 									Peanuts
                                 </label>
                             </div>
@@ -237,7 +326,7 @@ export default async function RsvpGroupUpdateForm(props) {
                                 <input
                                     className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
-                                    name={`${rsvp.id}|foodAllergy4`}
+                                    name={`${index}|${rsvp.name}|foodAllergy4`}
                                     value="SOY_PRODUCTS"
                                     defaultChecked={
                                         rsvp.foodAllergies &&
@@ -247,7 +336,7 @@ export default async function RsvpGroupUpdateForm(props) {
                                             ? "checked"
                                             : ""
                                     }></input>
-                                <label className="text-2xl" htmlFor={`${rsvp.id}|foodAllergy4`}>
+                                <label className="text-2xl" htmlFor={`${index}|${rsvp.name}|foodAllergy4`}>
 									Soy Products
                                 </label>
                             </div>
@@ -255,10 +344,10 @@ export default async function RsvpGroupUpdateForm(props) {
                                 <input
                                     className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
-                                    name={`${rsvp.id}|foodAllergy5`}
+                                    name={`${index}|${rsvp.name}|foodAllergy5`}
                                     value="DAIRY"
                                     defaultChecked={isDairyRestricted(rsvp.dietaryRestrictions, rsvp.foodAllergies)}></input>
-                                <label className="text-2xl" htmlFor={`${rsvp.id}|foodAllergy5`}>
+                                <label className="text-2xl" htmlFor={`${index}|${rsvp.name}|foodAllergy5`}>
 									Dairy
                                 </label>
                             </div>
@@ -266,7 +355,7 @@ export default async function RsvpGroupUpdateForm(props) {
                                 <input
                                     className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
-                                    name={`${rsvp.id}|foodAllergy6`}
+                                    name={`${index}|${rsvp.name}|foodAllergy6`}
                                     value="TREE_NUTS"
                                     defaultChecked={
                                         rsvp.foodAllergies &&
@@ -274,7 +363,7 @@ export default async function RsvpGroupUpdateForm(props) {
                                             ? "checked"
                                             : ""
                                     }></input>
-                                <label className="text-2xl" htmlFor={`${rsvp.id}|foodAllergy6`}>
+                                <label className="text-2xl" htmlFor={`${index}|${rsvp.name}|foodAllergy6`}>
 									Tree Nuts
                                 </label>
                             </div>
@@ -282,7 +371,7 @@ export default async function RsvpGroupUpdateForm(props) {
                                 <input
                                     className="mr-2 w-5 h-5 cursor-pointer"
                                     type="checkbox"
-                                    name={`${rsvp.id}|foodAllergy7`}
+                                    name={`${index}|${rsvp.name}|foodAllergy7`}
                                     value="MUSHROOM"
                                     defaultChecked={
                                         rsvp.foodAllergies &&
@@ -290,14 +379,18 @@ export default async function RsvpGroupUpdateForm(props) {
                                             ? "checked"
                                             : ""
                                     }></input>
-                                <label className="text-2xl" htmlFor={`${rsvp.id}|foodAllergy7`}>
+                                <label className="text-2xl" htmlFor={`${index}|${rsvp.name}|foodAllergy7`}>
 									Mushroom
                                 </label>
                             </div>
                         </div>
                     </div>
                 ))}
-                <SubmitButton label="SUBMIT" />
+                { namesToRemove.size > 0 ? <DeleteSubmitButton label="SUBMIT" type="button" onButtonClick={openDeleteModal} />: <SubmitButton label="SUBMIT" /> }
+                
+                <div className="pt-5">
+                    { props.rsvpGroup.modifyGroup ? <AddButton label="+ ADD PERSON" onButtonClick={openAddModal} /> : null }
+                </div>
             </form>
             <FloorFoliage />
         </>

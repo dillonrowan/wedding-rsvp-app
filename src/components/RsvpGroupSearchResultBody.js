@@ -6,6 +6,7 @@ import SubmitButton from "./SubmitButton";
 
 export default function RsvpGroupSearchResultBody(props) {
     const [selectedRsvpGroup, setSelectedRsvpGroup] = useState(null);
+    const [stateUpdateKey, setStateUpdateKey] = useState(0);
     const [selectedTemp, setSelectedTemp] = useState(null);
 
     const router = useRouter();
@@ -17,6 +18,11 @@ export default function RsvpGroupSearchResultBody(props) {
 
     const handleBackButtonClicked = (e) => {
         router.push("/rsvp");
+    };
+
+    const handleRsvpGroupUpdate = (rsvpGroup) => {
+        setSelectedRsvpGroup(rsvpGroup);
+        setStateUpdateKey(stateUpdateKey + 1);
     };
 
     if(!selectedRsvpGroup) {
@@ -70,7 +76,7 @@ export default function RsvpGroupSearchResultBody(props) {
 
     return (
         <div>
-            <RsvpGroupUpdateForm rsvpGroup={selectedRsvpGroup} />
+            <RsvpGroupUpdateForm rsvpGroup={selectedRsvpGroup} setRsvpData={handleRsvpGroupUpdate} />
         </div>
     );
 }
