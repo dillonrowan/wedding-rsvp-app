@@ -1,7 +1,7 @@
 export async function POST(request) {
-    console.log("INSIDE DELTEEE******************")
+    console.log("INSIDE DELTEEE******************");
     const data = await request.json();
-    console.log(data)
+    console.log(data);
     const res = await fetch(
         // "http://api.jenniferanddillonwedding.com:8080/api/update-rsvp-and-rsvp-groups",
         `http://localhost:8080/api/rsvps/${data.groupId}`,

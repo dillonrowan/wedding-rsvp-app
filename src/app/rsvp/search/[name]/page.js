@@ -2,7 +2,7 @@ import React from "react";
 import RsvpGroupSearchResultBody from "../../../../components/RsvpGroupSearchResultBody";
 import SearchRsvpByNameForm from "../../../../components/SearchRsvpByNameForm";
 import { revalidateTag } from "next/cache";
-import { revalidatePath } from 'next/cache'
+import { revalidatePath } from "next/cache";
 
 
 export default async function Page({ params }) {

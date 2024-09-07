@@ -7,20 +7,25 @@ import FloorFoliage from "./FloorFoliage";
 import DeleteConfirmModal from "@/components/DeleteConfirmModal";
 import AddPersonModal from "@/components/AddPersonModal";
 import AddButton from "./AddButton";
-import { revalidatePath } from 'next/cache'
+import { revalidatePath } from "next/cache";
 
 
 export default function RsvpGroupUpdateForm(props) {
     const [isShowingDeleteModal, setIsShowingDeleteModal] = useState(false);
-    const [nameToRemove, setNameToRemove] = useState("");
+    const [stateUpdateKey, setStateUpdateKey] = useState(0);
+    const [namesToRemove, setNamesToRemove] = useState(new Set());
     const [isShowingAddModal, setIsShowingAddModal] = useState(false);
 
+    let formData = null;
+
     const closeDeleteModal = () => {
-        setNameToRemove("");
+        setNamesToRemove([]);
         setIsShowingDeleteModal(false);
     };
 
-    const openDeleteModal = (rsvpName) => {
+    const openDeleteModal = () => {
+        //e.preventDefault();
+        //formData = new FormData(e.target);
         setIsShowingDeleteModal(true);
     };
 
@@ -29,30 +34,67 @@ export default function RsvpGroupUpdateForm(props) {
     };
 
     const openAddModal = (rsvpName) => {
-        setNameToRemove(rsvpName);
+        setNamesToRemove(rsvpName);
         setIsShowingAddModal(true);
     };
 
-    const removeSelection = async () => {
+    const handleRemoveCheckBoxClicked = (e) => {
+        console.log("INSIDE HANDLE REMOVE CLICK")
+        console.log(e.target.name)
+        console.log(e.target.value)
+        console.log(e.target.checked)
+        if(e.target.checked) {
+            console.log("IN THE ON")
+            let namesToRemoveTemp = namesToRemove;
+            namesToRemoveTemp.add(e.target.name);
+            setNamesToRemove(namesToRemoveTemp);
+        } else {
+            console.log("UNCHECK!")
+            let namesToRemoveTemp = namesToRemove;
+            namesToRemoveTemp.delete(e.target.name);
+            setNamesToRemove(namesToRemoveTemp)
+        }        
+        setStateUpdateKey(stateUpdateKey + 1);
+        console.log(namesToRemove)
+    }
+
+    const handleSubmitWithDeletion = async (e) => {
         setIsShowingDeleteModal(false);
-        
-        const data = { groupId: props.rsvpGroup.id, names: [nameToRemove] };
-        const res = await fetch("/api/deleteRsvps", {
+
+        const updateResp = await handleSubmit(e);
+        if (updateResp.status != 200) {
+            console.error(message);
+            router.push(
+                `/rsvp/group/submitted?status=${deleteResp.status}`
+            );
+        }
+
+        const deleteResp = await deleteRsvps();
+        if (deleteResp.status != 200) {
+            console.error(message);
+            router.push(
+                `/rsvp/group/submitted?status=${deleteResp.status}`
+            );
+        }
+    };
+
+    const deleteRsvps = async () => {
+        console.log(namesToRemove)
+        const data = { groupId: props.rsvpGroup.id, names: Array.from(namesToRemove) };
+        return await fetch("/api/deleteRsvps", {
             cache: "no-store",
             method: "POST",
             body: JSON.stringify(data),
         });
+    }
 
-        const status = res.status;
-        if (status == 200) {
-            let rsvpGroup = props.rsvpGroup;
-            let rsvps = props.rsvpGroup.rsvps.filter((r) => r.name != nameToRemove);
-            rsvpGroup.rsvps = rsvps;
-            props.setRsvpData(rsvpGroup);
-        } else {
-            // show error modal here
-        }
-    };
+    const updateRsvps = async (rsvpGroupToPost) => {
+        return await fetch("/api/updateRsvpGroupAndRsvps", {
+            cache: "no-store",
+            method: "POST",
+            body: JSON.stringify(rsvpGroupToPost),
+        });
+    }
 
     const handleAddPerson = async (nameToAdd) => {
         setIsShowingDeleteModal(false);
@@ -65,14 +107,9 @@ export default function RsvpGroupUpdateForm(props) {
         });
 
         const status = res.status;
-        if (status == 200) {
-            //revalidatePath('/rsvp/search/[name]', 'page')
-            router.push(`/rsvp/search/${props.searchName}?new=1`);
-            router.refresh();
-            //router.push(`/rsvp/search/`);
-        } else {
-            // show error modal here
-        }
+        router.push(
+            `/rsvp/group/submitted?status=${status}`
+        );
         setIsShowingAddModal(false);
     };
 
@@ -94,6 +131,9 @@ export default function RsvpGroupUpdateForm(props) {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        if (namesToRemove.size > 0) {
+            setIsShowingDeleteModal(true);
+        }
 
         // Form input of type "checkbox" will only contain entries for items that are "checked"
         const data = new FormData(e.target);
@@ -164,16 +204,28 @@ export default function RsvpGroupUpdateForm(props) {
                 email: email,
             },
         ];
+        
+        let resp = await updateRsvps(rsvpGroupToPost);
+        if (resp.status != 200) {
+            console.error(resp);
+            handleErrorPage(resp);
+        }
 
-        const res = await fetch("/api/updateRsvpGroupAndRsvps", {
-            cache: "no-store",
-            method: "POST",
-            body: JSON.stringify(rsvpGroupToPost),
-        });
-
-        const status = res.status;
+        if (namesToRemove.size > 0) {
+            resp = await deleteRsvps();
+            if (resp.status != 200) {
+                console.error(resp);
+                handleErrorPage(resp);
+            }
+        }   
         router.push(
-            `/rsvp/group/submitted?status=${status}`
+            `/rsvp/group/submitted?status=${resp.status}`
+        );     
+    }
+
+    const handleErrorPage = (resp) => {
+        router.push(
+            `/rsvp/group/submitted?status=${resp.status}&action=update&statusText=${resp.statusText}`
         );
     }
 
@@ -205,14 +257,15 @@ export default function RsvpGroupUpdateForm(props) {
     };
 
     return (
-        <>     
+        <>     <div>{namesToRemove.size}</div>
             { isShowingAddModal && <AddPersonModal handleModalClose={closeAddModal} handleAdd={handleAddPerson} /> }   
-            { isShowingDeleteModal && <DeleteConfirmModal handleModalClose={closeDeleteModal} handleRemove={removeSelection} /> }     
+              
             <form
                 className="accent-purple-100 font-cormorant"
                 onSubmit={(e) => {
                     handleSubmit(e);
                 }}>
+                { isShowingDeleteModal && <DeleteConfirmModal handleModalClose={closeDeleteModal} /> }   
                 <div className="text-centertext-xl">
                     <p className="font-cormorant font-cormorant text-2xl pb-5">Please fill out what best describes your attending party.</p>                   
                 </div>
@@ -223,10 +276,22 @@ export default function RsvpGroupUpdateForm(props) {
                         <div className="flex justify-between content-center">
                             <div className="font-cormorant font-bold text-2xl">{rsvp.name}</div>
                             <div>
-                                {props.rsvpGroup.modifyGroup && (rsvp.name != props.rsvpGroup.groupLead) ?
+                                {/* {props.rsvpGroup.modifyGroup && (rsvp.name != props.rsvpGroup.groupLead) ?
                                     <DeleteButton label="Remove" onButtonClick={() => {
                                         openDeleteModal(rsvp.name);
-                                    }}/> : null}                                
+                                    }}/> : null}                                 */}
+                                {/* remove input */}
+                                {props.rsvpGroup.modifyGroup && (rsvp.name != props.rsvpGroup.groupLead) ?
+                                    <div>
+                                        <input
+                                            className="mr-2 w-5 h-5 cursor-pointer"
+                                            type="checkbox" name={rsvp.name} onClick={handleRemoveCheckBoxClicked}></input>
+                                        
+                                        <label className="text-2xl">
+                                            Remove
+                                        </label>
+                                    </div>
+                                : null}
                             </div>
                         </div>
                         
@@ -382,7 +447,8 @@ export default function RsvpGroupUpdateForm(props) {
                         </div>
                     </div>
                 ))}
-                <SubmitButton label="SUBMIT" />
+                { namesToRemove.size > 0 ? <button type="button" onClick={openDeleteModal}>SUBMIT</button> : <SubmitButton label="SUBMIT" /> }
+                
                 <div className="pt-5">
                     { props.rsvpGroup.modifyGroup ? <AddButton label="+ ADD PERSON" onButtonClick={openAddModal} /> : null }
                 </div>

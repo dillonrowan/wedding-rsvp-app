@@ -12,7 +12,7 @@ export default function DeleteConfirmModal(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(e)
+        console.log(e);
         props.handleAdd(textInput);
         // if(groupSearchInput) {
         //     router.push(path);
