@@ -1,4 +1,3 @@
-import NavigationButton from "../components/NavigationButton";
 import Image from "next/image";
 
 export default async function Home() {
@@ -42,10 +41,6 @@ export default async function Home() {
             <div className="text-center">
                 <div className="text-xl lg:text-3xl">The Hummingbird House</div>
                 <div className="text-sm text-stone-500">12805 Arroyo Doble Dr, Manchaca, TX 78652</div>
-            </div>
-            
-            <div className="w-1/3 pb-8">
-                <NavigationButton route="rsvp" />
             </div>
         </div>        
     );
