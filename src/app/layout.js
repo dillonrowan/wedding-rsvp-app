@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Drawer from "../components/Drawer";
 import Image from "next/image";
 import FloorFoliage from "@/components/FloorFoliage";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const cormorant = Cormorant({ 
     subsets: ["latin"],
@@ -72,6 +73,7 @@ export default function RootLayout({ children }) {
                 
                 <div className="pt-20 lg:pt-14 pb-5 portrait:px-5 landscape:px-28">{children}</div>
                 <FloorFoliage />
+                <SpeedInsights />
             </body>
         </html>
     );
